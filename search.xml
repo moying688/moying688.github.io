@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title></title>
+      <link href="/2024/06/22/Shell%E8%84%9A%E6%9C%AC%E5%9F%BA%E7%A1%80%E5%AE%9E%E9%AA%8C/"/>
+      <url>/2024/06/22/Shell%E8%84%9A%E6%9C%AC%E5%9F%BA%E7%A1%80%E5%AE%9E%E9%AA%8C/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Shell脚本基础实验"><a href="#Shell脚本基础实验" class="headerlink" title="Shell脚本基础实验"></a>Shell脚本基础实验</h1><h2 id="任务一：优雅退出select循环"><a href="#任务一：优雅退出select循环" class="headerlink" title="任务一：优雅退出select循环"></a>任务一：优雅退出select循环</h2><p>修改<code>select</code>菜单脚本，实现如下要求：</p><ul><li>添加一个菜单项<code>exit</code></li><li>用户选择其他菜单项的时候就输出选择的值</li><li>选择<code>exit</code>菜单项则退出脚本</li><li>不使用<code>Ctrl+C</code>结束脚本</li></ul><p><strong>代码及结果截图写入实验报告。</strong></p><p><img src="https://dn-simplecloud.shiyanlou.com/courses/uid2931416-20240622-1719062141293" alt="图片描述"></p><p><img src="https://dn-simplecloud.shiyanlou.com/courses/uid2931416-20240622-1719062179178" alt="图片描述"></p><h2 id="任务二：计算阶乘"><a href="#任务二：计算阶乘" class="headerlink" title="任务二：计算阶乘"></a>任务二：计算阶乘</h2><p>请编写Shell脚本，实现<code>n阶乘</code>的计算。提示用户输入<code>n</code>值，然后输出<code>n阶乘</code>计算结果。</p><p>为了避免计算时间过长，可以限制n值<code>上限</code>，例如<code>15</code>。</p><p><strong>代码及结果截图写入实验报告。</strong></p><p><img src="https://dn-simplecloud.shiyanlou.com/courses/uid2931416-20240622-1719062620992" alt="图片描述"></p><p><img src="https://dn-simplecloud.shiyanlou.com/courses/uid2931416-20240622-1719062665112" alt="图片描述"></p><h2 id="任务三：打印杨辉三角形"><a href="#任务三：打印杨辉三角形" class="headerlink" title="任务三：打印杨辉三角形"></a>任务三：打印杨辉三角形</h2><p>请使用Shell脚本的循环和输出控制，打印杨辉三角形。</p><p>用户输入n值，作为杨辉三角形的层数。也可以限制最大值。</p><p>例如：n&#x3D;7的杨辉三角形</p><p><img src="https://dn-simplecloud.shiyanlou.com/courses/uid2931416-20240622-1719063633739" alt="图片描述"></p><p><img src="https://dn-simplecloud.shiyanlou.com/courses/uid2931416-20240622-1719063741952" alt="图片描述"><br><img src="https://dn-simplecloud.shiyanlou.com/courses/uid2931416-20240622-1719063749775" alt="图片描述"></p><h2 id="任务四：多种样式的进度条"><a href="#任务四：多种样式的进度条" class="headerlink" title="任务四：多种样式的进度条"></a>任务四：多种样式的进度条</h2><p>进度条用于帮助用户直观理解一个任务进行的进度。</p><h4 id="1-请你设计一个用字符（-）构建的旋转进度条，伴随模拟进度百分比数值的变化，至100-时结束。"><a href="#1-请你设计一个用字符（-）构建的旋转进度条，伴随模拟进度百分比数值的变化，至100-时结束。" class="headerlink" title="1.请你设计一个用字符（-|&#x2F;）构建的旋转进度条，伴随模拟进度百分比数值的变化，至100%时结束。"></a>1.请你设计一个用字符（-|&#x2F;）构建的旋转进度条，伴随模拟进度百分比数值的变化，至100%时结束。</h4><p>例如：</p><p>时刻1显示：- (1%)</p><p>时刻2显示：&#x2F; (20%)</p><p>在同一位置逐个显示上述四个符号，可以实现旋转进度条。</p><p>进度百分比模拟即可，无需反应实际任务情况。</p><p><strong>代码及结果截图写入实验报告。</strong></p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">初始化变量</span></span><br><span class="line">  progress=1</span><br><span class="line">  bar=&#x27;-&#x27;</span><br><span class="line">   </span><br><span class="line">  symbols=(&#x27;-&#x27; &#x27;/&#x27; &#x27;\&#x27; &#x27;|&#x27;)</span><br><span class="line">   </span><br><span class="line">  while [ $progress -le 100 ]; do</span><br><span class="line">    percent=$((progress*25))</span><br><span class="line">    echo -ne &quot;\r[$bar] $percent%&quot;</span><br><span class="line">   bar=$&#123;symbols[$(( (progress-1) % 4 ))]&#125;</span><br><span class="line">    progress=$((progress+1))</span><br><span class="line">    sleep 1</span><br><span class="line">    if [ $progress -gt 4 ]; then</span><br><span class="line">       break</span><br><span class="line">    fi</span><br><span class="line">done</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">进度完成，打印完成信息并换行</span></span><br><span class="line">echo -e &quot;\r[Done] 100%&quot; </span><br></pre></td></tr></table></figure><h4 id="2-设计一款进度条"><a href="#2-设计一款进度条" class="headerlink" title="2. 设计一款进度条"></a>2. 设计一款进度条</h4><p>进度条有多种样式，请发挥想象或者见过的进度条，用Shell脚本编程实现另外至少一款进度条。</p><p><img src="https://dn-simplecloud.shiyanlou.com/courses/uid2931416-20240622-1719064093885" alt="图片描述"><br><img src="https://dn-simplecloud.shiyanlou.com/courses/uid2931416-20240622-1719064100495" alt="图片描述"></p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">TOTAL=50</span><br><span class="line">PROGRESS_CHAR=&quot;#&quot;</span><br><span class="line">EMPTY_CHAR=&quot;-&quot;</span><br><span class="line"></span><br><span class="line">read -p &quot;请输入进度条的总进度（例如100）： &quot; max_progress</span><br><span class="line"></span><br><span class="line">if [ $max_progress -le 0 ]; then</span><br><span class="line">  echo &quot;进度必须大于0&quot;</span><br><span class="line">  exit 1</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">current_progress=0</span><br><span class="line"></span><br><span class="line">print_progress_bar() &#123;</span><br><span class="line">  progress=$((current_progress * TOTAL / max_progress))</span><br><span class="line">  empty=$((TOTAL - progress))</span><br><span class="line">  </span><br><span class="line">  progress_bar=$(printf &quot;%0.s$&#123;PROGRESS_CHAR&#125;&quot; $(seq 1 $progress))</span><br><span class="line">  empty_bar=$(printf &quot;%0.s$&#123;EMPTY_CHAR&#125;&quot; $(seq 1 $empty))</span><br><span class="line">  </span><br><span class="line">  printf &quot;\r[%-$&#123;TOTAL&#125;s] %d%%&quot; &quot;$&#123;progress_bar&#125;$&#123;empty_bar&#125;&quot; $((current_progress * 100 / max_progress))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">while [ $current_progress -le $max_progress ]; do</span><br><span class="line">  print_progress_bar</span><br><span class="line">  current_progress=$((current_progress + 1))</span><br><span class="line">  sleep 0.05</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">echo -e &quot;\n完成！&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure><h2 id="任务五：模拟Linux登录shell的字符界面"><a href="#任务五：模拟Linux登录shell的字符界面" class="headerlink" title="任务五：模拟Linux登录shell的字符界面"></a>任务五：模拟Linux登录shell的字符界面</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">login:stu01</span><br><span class="line">password:_</span><br></pre></td></tr></table></figure><p>要求：</p><ul><li>login之后不换行，等待用户输入用户名。</li><li>输出<code>password:</code>，不换行等待用户输入口令</li><li>判断用户名和口令是否正确</li><li>相应输出不同信息<ul><li>正确的打印<code>欢迎信息</code></li><li>错误的提示<code>登录失败</code></li></ul></li></ul><p><img src="https://dn-simplecloud.shiyanlou.com/courses/uid2931416-20240622-1719064513941" alt="图片描述"></p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">预设的正确用户名和密码</span></span><br><span class="line">CORRECT_USERNAME=&quot;stu01&quot;</span><br><span class="line">CORRECT_PASSWORD=&quot;password123&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">提示用户输入用户名</span></span><br><span class="line">echo -n &quot;login: &quot;</span><br><span class="line">read username</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">提示用户输入密码（不回显输入的字符）</span></span><br><span class="line">echo -n &quot;password: &quot;</span><br><span class="line">read -s password</span><br><span class="line">echo</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">验证用户名和密码</span></span><br><span class="line">if [ &quot;$username&quot; == &quot;$CORRECT_USERNAME&quot; ] &amp;&amp; [ &quot;$password&quot; == &quot;$CORRECT_PASSWORD&quot; ]; then</span><br><span class="line">  echo &quot;Welcome, $username!&quot;</span><br><span class="line">else</span><br><span class="line">  echo &quot;Login failed&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>数据库事务隔离等级</title>
       <link href="/2024/06/09/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9B%9B%E7%A7%8D%E9%9A%94%E7%A6%BB%E7%AD%89%E7%BA%A7/"/>
       <url>/2024/06/09/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9B%9B%E7%A7%8D%E9%9A%94%E7%A6%BB%E7%AD%89%E7%BA%A7/</url>
@@ -94,9 +107,9 @@
       
         <tags>
             
-            <tag> 新东西 </tag>
-            
             <tag> 中间件 </tag>
+            
+            <tag> 新东西 </tag>
             
         </tags>
       
@@ -197,31 +210,6 @@
     
     
     <entry>
-      <title>java8基础知识</title>
-      <link href="/2024/03/22/Java%E5%9F%BA%E7%A1%80/Java8/"/>
-      <url>/2024/03/22/Java%E5%9F%BA%E7%A1%80/Java8/</url>
-      
-        <content type="html"><![CDATA[<p>daisiki，在此见证Java8的预习，啊不，学习记录。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Java </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 新东西 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>SpringCloud学习</title>
       <link href="/2024/03/22/Java%E5%9F%BA%E7%A1%80/SpringCloud/"/>
       <url>/2024/03/22/Java%E5%9F%BA%E7%A1%80/SpringCloud/</url>
@@ -241,6 +229,31 @@
             <tag> 新东西 </tag>
             
             <tag> web </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>java8基础知识</title>
+      <link href="/2024/03/22/Java%E5%9F%BA%E7%A1%80/Java8/"/>
+      <url>/2024/03/22/Java%E5%9F%BA%E7%A1%80/Java8/</url>
+      
+        <content type="html"><![CDATA[<p>daisiki，在此见证Java8的预习，啊不，学习记录。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 新东西 </tag>
             
         </tags>
       
