@@ -4,13 +4,25 @@
   
     
     <entry>
-      <title>testHexo</title>
+      <title>build your Hexo</title>
       <link href="/2024/11/19/hexoTest/"/>
       <url>/2024/11/19/hexoTest/</url>
       
-        <content type="html"><![CDATA[<p><img src="play\Butterfly\source_posts\hexoTest\image-20241119212629200.png" alt="image-20241119212629200"></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="使用Hexo-框架搭建博客"><a href="#使用Hexo-框架搭建博客" class="headerlink" title="使用Hexo 框架搭建博客"></a>使用Hexo 框架搭建博客</h1><h2 id="解决没有钱买图床的问题"><a href="#解决没有钱买图床的问题" class="headerlink" title="解决没有钱买图床的问题"></a>解决没有钱买图床的问题</h2><ol><li>首先设置好typora的图片保存（这样在我们插入图片的时候会生成一个同名文件夹用来保存图片资源）</li></ol><p><img src="image-20241119214157661.png" alt="image-20241119214157661"></p><ol start="2"><li>安装以及修改插件</li></ol><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install hexo-asset-image -- save</span><br></pre></td></tr></table></figure><p><img src="image-20241119214305870.png" alt="image-20241119214305870"></p><p>此时再使用命令查看</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo clean &amp; hexo g &amp; hexo s</span><br></pre></td></tr></table></figure>]]></content>
       
       
+      <categories>
+          
+          <category> 杂货 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 新东西 </tag>
+            
+        </tags>
       
     </entry>
     
