@@ -299,9 +299,9 @@
             
             <tag> algorithm </tag>
             
-            <tag> go </tag>
-            
             <tag> java </tag>
+            
+            <tag> go </tag>
             
         </tags>
       
@@ -322,9 +322,9 @@
             
             <tag> algorithm </tag>
             
-            <tag> go </tag>
-            
             <tag> java </tag>
+            
+            <tag> go </tag>
             
         </tags>
       
@@ -343,9 +343,9 @@
       
         <tags>
             
-            <tag> 并发 </tag>
-            
             <tag> database </tag>
+            
+            <tag> 并发 </tag>
             
         </tags>
       
