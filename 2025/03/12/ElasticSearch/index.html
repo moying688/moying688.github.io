@@ -1,18 +1,18 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>ElasticSearch 进阶 | 一只末影酱的小屋</title><meta name="author" content="末影"><meta name="copyright" content="末影"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="ES使用场景 全文搜索  日志检索，配合Kibana可视化  商品搜索  实时监控  个性化推荐，根据用户搜索历史、浏览行为找出相似内容  地理位置搜索（外卖系统）  智能提示/提示词   🔵 MySQL不能替代ES，因为：  MySQL做全文检索很弱（like %xxx% 查询超级慢）  MySQL不擅长复杂聚合分析（特别是大数据量）  MySQL无法做到灵活的多字段模糊搜索、地理">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>ElasticSearch 进阶 | 一只末影酱的小屋</title><meta name="author" content="末影"><meta name="copyright" content="末影"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="ElasticSearch ES使用场景 全文搜索 日志检索，配合Kibana可视化 商品搜索 实时监控 个性化推荐，根据用户搜索历史、浏览行为找出相似内容 地理位置搜索（外卖系统） 智能提示/提示词  🔵 MySQL不能替代ES，因为：  MySQL做全文检索很弱（like %xxx% 查询超级慢） MySQL不擅长复杂聚合分析（特别是大数据量） MySQL无法做到灵活的多字段模糊搜">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ElasticSearch 进阶">
 <meta property="og:url" content="http://example.com/2025/03/12/ElasticSearch/index.html">
 <meta property="og:site_name" content="一只末影酱的小屋">
-<meta property="og:description" content="ES使用场景 全文搜索  日志检索，配合Kibana可视化  商品搜索  实时监控  个性化推荐，根据用户搜索历史、浏览行为找出相似内容  地理位置搜索（外卖系统）  智能提示/提示词   🔵 MySQL不能替代ES，因为：  MySQL做全文检索很弱（like %xxx% 查询超级慢）  MySQL不擅长复杂聚合分析（特别是大数据量）  MySQL无法做到灵活的多字段模糊搜索、地理">
+<meta property="og:description" content="ElasticSearch ES使用场景 全文搜索 日志检索，配合Kibana可视化 商品搜索 实时监控 个性化推荐，根据用户搜索历史、浏览行为找出相似内容 地理位置搜索（外卖系统） 智能提示/提示词  🔵 MySQL不能替代ES，因为：  MySQL做全文检索很弱（like %xxx% 查询超级慢） MySQL不擅长复杂聚合分析（特别是大数据量） MySQL无法做到灵活的多字段模糊搜">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.helloimg.com/i/2024/11/19/673c86614db4d.png">
+<meta property="og:image" content="https://www.helloimg.com/i/2025/06/10/6847ffee96241.jpg">
 <meta property="article:published_time" content="2025-03-11T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-04-13T10:16:03.687Z">
+<meta property="article:modified_time" content="2025-06-10T09:53:36.306Z">
 <meta property="article:author" content="末影">
 <meta property="article:tag" content="中间件">
 <meta property="article:tag" content="ELK">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.helloimg.com/i/2024/11/19/673c86614db4d.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2025/03/12/ElasticSearch/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+<meta name="twitter:image" content="https://www.helloimg.com/i/2025/06/10/6847ffee96241.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2025/03/12/ElasticSearch/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
   root: '/',
   algolia: undefined,
   localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
@@ -57,7 +57,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2025-04-13 18:16:03'
+  postUpdate: '2025-06-10 17:53:36'
 }</script><script>(win=>{
       win.saveToLocal = {
         set: (key, value, ttl) => {
@@ -180,108 +180,69 @@ if (false) {
 document.addEventListener('pjax:send', () => {
   Pace.restart()
 })
-</script><link rel="stylesheet" href="/css/progress_bar.css"><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://www.helloimg.com/i/2024/11/19/673c86614db4d.png')"><nav id="nav"><span id="blog-info"><a href="/" title="一只末影酱的小屋"><span class="site-name">一只末影酱的小屋</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">ElasticSearch 进阶</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-03-11T16:00:00.000Z" title="发表于 2025-03-12 00:00:00">2025-03-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-04-13T10:16:03.687Z" title="更新于 2025-04-13 18:16:03">2025-04-13</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/">中间件</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/ELK/">ELK</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>21分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="ElasticSearch 进阶"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><div class="top-img" style="background-image: url('https://www.helloimg.com/i/2024/11/19/673c86614db4d.png');"></div><article class="post-content" id="article-container"><p><img src="/2025/03/12/ElasticSearch/output.png" alt="output"></p>
+</script><link rel="stylesheet" href="/css/progress_bar.css"><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://www.helloimg.com/i/2025/06/10/6847ffee96241.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="一只末影酱的小屋"><span class="site-name">一只末影酱的小屋</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">ElasticSearch 进阶</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-03-11T16:00:00.000Z" title="发表于 2025-03-12 00:00:00">2025-03-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-06-10T09:53:36.306Z" title="更新于 2025-06-10 17:53:36">2025-06-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/">中间件</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/ELK/">ELK</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">6.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>22分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="ElasticSearch 进阶"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><div class="top-img" style="background-image: url('https://www.helloimg.com/i/2025/06/10/6847ffee96241.jpg');"></div><article class="post-content" id="article-container"><h1 id="ElasticSearch"><a href="#ElasticSearch" class="headerlink" title="ElasticSearch"></a>ElasticSearch</h1><p><img src="/2025/03/12/ElasticSearch/image-20250610171713163.png" alt="image-20250610171713163"></p>
 <h1 id="ES使用场景"><a href="#ES使用场景" class="headerlink" title="ES使用场景"></a>ES使用场景</h1><ol>
-<li><p>全文搜索</p>
-</li>
-<li><p>日志检索，配合Kibana可视化</p>
-</li>
-<li><p>商品搜索</p>
-</li>
-<li><p>实时监控</p>
-</li>
-<li><p>个性化推荐，根据用户搜索历史、浏览行为找出相似内容</p>
-</li>
-<li><p>地理位置搜索（外卖系统）</p>
-</li>
-<li><p>智能提示/提示词</p>
-</li>
+<li>全文搜索</li>
+<li>日志检索，配合Kibana可视化</li>
+<li>商品搜索</li>
+<li>实时监控</li>
+<li>个性化推荐，根据用户搜索历史、浏览行为找出相似内容</li>
+<li>地理位置搜索（外卖系统）</li>
+<li>智能提示/提示词</li>
 </ol>
-<p>🔵 MySQL不能替代ES，因为：</p>
+<p>🔵 <strong>MySQL</strong>不能替代<strong>ES</strong>，因为：</p>
 <ul>
-<li><p>MySQL做全文检索很弱（like %xxx% 查询超级慢）</p>
-</li>
-<li><p>MySQL不擅长复杂聚合分析（特别是大数据量）</p>
-</li>
-<li><p>MySQL无法做到灵活的多字段模糊搜索、地理位置搜索、同义词处理</p>
-</li>
+<li>MySQL做全文检索很弱（like %xxx% 查询超级慢）</li>
+<li>MySQL不擅长复杂聚合分析（特别是大数据量）</li>
+<li>MySQL无法做到灵活的多字段模糊搜索、地理位置搜索、同义词处理</li>
 </ul>
-<p>🔵 ES不能替代MySQL，因为：</p>
+<p>🔵 <strong>ES</strong>不能替代<strong>MySQL</strong>，因为：</p>
 <ul>
-<li><p>ES写一致性弱，不支持多表事务（比如扣库存和扣余额一起回滚）</p>
-</li>
-<li><p>ES不保证强一致性（默认最终一致性，适合搜索，不适合资金类应用）</p>
-</li>
-<li><p>ES的数据模型松散，复杂关系建模很痛苦（比如订单拆分、子表操作）</p>
-</li>
+<li>ES写一致性弱，不支持多表事务（比如扣库存和扣余额一起回滚）</li>
+<li>ES不保证强一致性（默认最终一致性，适合搜索，不适合资金类应用）</li>
+<li>ES的数据模型松散，复杂关系建模很痛苦（比如订单拆分、子表操作）</li>
 </ul>
 <h1 id="什么是ElasticSearch？"><a href="#什么是ElasticSearch？" class="headerlink" title="什么是ElasticSearch？"></a>什么是ElasticSearch？</h1><p>简单来说，ES是一个分布式的、基于文档的 搜索引擎+数据库系统</p>
 <ul>
-<li><p>分布式： 天然支持分布式/集群、扩展节点</p>
-</li>
-<li><p>文档存储： 数据并不是以行或者列进行存储，而是一份份JSON文档</p>
-<ul>
+<li>分布式： 天然支持分布式/集群、扩展节点</li>
+<li>文档存储： 数据并不是以行或者列进行存储，而是一份份JSON文档<ul>
 <li>聚合分析（数值型字段）会单独存储到Doc values中，列式存储（加速聚合分析，且无冗余字段，比MySQL快太多了</li>
 </ul>
 </li>
-<li><p>搜索引擎： 天然支持全文检索、模糊匹配、权重排行</p>
-</li>
-<li><p>近实时： 数据写进去后，需要等待几秒才能查询到</p>
-</li>
+<li>搜索引擎： 天然支持全文检索、模糊匹配、权重排行</li>
+<li><strong>近实时： 数据写进去后，需要等待几秒才能查询到</strong></li>
 </ul>
 <h2 id="专业术语（import）"><a href="#专业术语（import）" class="headerlink" title="专业术语（import）"></a>专业术语（import）</h2><ol>
-<li><p>集群： 一堆ES结点组成的整体</p>
-</li>
-<li><p>结点：单个ES实例</p>
-</li>
-<li><p>索引： 类似于MySQL的数据库表</p>
-</li>
-<li><p>文档： 存储的一条数据（JSON） 类似于MySQL的一行数据</p>
-</li>
-<li><p>字段（Field）： 文档里面的key ， 类似于MySQL的列字段</p>
-</li>
-<li><p>Mapping： 字段结构定义 ， 类似于MySQL的表结构</p>
-</li>
-<li><p>分片（shard）：把索引数据切片到不同结点上 （分库分表）</p>
-</li>
-<li><p>副本（Replica）：分片的备份</p>
-</li>
+<li>集群： 一堆ES结点组成的整体</li>
+<li>结点：单个ES实例</li>
+<li>索引： 类似于MySQL的数据库表</li>
+<li>文档： 存储的一条数据（JSON） 类似于MySQL的一行数据</li>
+<li>字段（Field）： 文档里面的key ， 类似于MySQL的列字段</li>
+<li>Mapping： 字段结构定义 ， 类似于MySQL的表结构</li>
+<li>分片（shard）：把索引数据切片到不同结点上 （分库分表）</li>
+<li>副本（Replica）：分片的备份</li>
 </ol>
-<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><p>ES的索引一旦建好，很多东西无法随意更改哦！</p>
+<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><blockquote>
+<p>ES的索引一旦建好，很多东西无法随意更改哦！</p>
+</blockquote>
 <ul>
-<li><p>settings中的参数能够动态修改（副本数）但是分片数无法修改</p>
-</li>
-<li><p>只能追加新字段，无法修改或者删除字段</p>
-</li>
+<li>settings中的参数能够动态修改（副本数）但是分片数无法修改</li>
+<li>只能追加新字段，无法修改或者删除字段</li>
 </ul>
 <h3 id="为什么ES无法随便修改字段？"><a href="#为什么ES无法随便修改字段？" class="headerlink" title="为什么ES无法随便修改字段？"></a>为什么ES无法随便修改字段？</h3><ul>
-<li><p>倒排索引，修改字段= 破坏索引结构，代价极大</p>
-</li>
-<li><p>ES底层时不可变文件（Segment）</p>
-<ul>
-<li>类似于LSM树的SSTable</li>
-<li>只写不改</li>
-<li>旧的数据标记为无效，合并时清除</li>
-</ul>
-</li>
+<li>倒排索引，修改字段= 破坏索引结构，代价极大</li>
+<li><h2 id="ES底层时不可变文件（Segment）-类似于LSM树的SSTable-只写不改-旧的数据标记为无效，合并时清除"><a href="#ES底层时不可变文件（Segment）-类似于LSM树的SSTable-只写不改-旧的数据标记为无效，合并时清除" class="headerlink" title="ES底层时不可变文件（Segment）- 类似于LSM树的SSTable- 只写不改- 旧的数据标记为无效，合并时清除"></a>ES底层时不可变文件（Segment）<br>- 类似于LSM树的SSTable<br>- 只写不改<br>- 旧的数据标记为无效，合并时清除</h2></li>
 </ul>
 <h3 id="Reindex"><a href="#Reindex" class="headerlink" title="Reindex"></a>Reindex</h3><ol>
-<li><p>创建一个新索引（新的mapping）</p>
-</li>
-<li><p>将老数据reindex过去</p>
-</li>
-<li><p>删除老索引</p>
-</li>
+<li>创建一个新索引（新的mapping）</li>
+<li>将老数据reindex过去</li>
+<li>删除老索引</li>
 </ol>
 <p>ES 中 就有这个API -&gt; reindex</p>
-<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">POST _reindex</span><br><span class="line">{</span><br><span class="line">  <span class="string">"source"</span>: {</span><br><span class="line">    <span class="string">"index"</span>: <span class="string">"old_index"</span></span><br><span class="line">  },</span><br><span class="line">  <span class="string">"dest"</span>: {</span><br><span class="line">    <span class="string">"index"</span>: <span class="string">"new_index"</span></span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
-
-
-
-
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">POST _reindex</span><br><span class="line">{</span><br><span class="line">  <span class="string">"source"</span>: {</span><br><span class="line">    <span class="string">"index"</span>: <span class="string">"old_index"</span></span><br><span class="line">  },</span><br><span class="line">  <span class="string">"dest"</span>: {</span><br><span class="line">    <span class="string">"index"</span>: <span class="string">"new_index"</span></span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <h2 id="底层结构"><a href="#底层结构" class="headerlink" title="底层结构"></a>底层结构</h2><ol>
-<li>倒排索引</li>
+<li><strong>倒排索引</strong></li>
 </ol>
 <p>极为核心的一点</p>
 <p>不同于正排索引那样： 这个文档包含哪些字段</p>
@@ -295,288 +256,188 @@ document.addEventListener('pjax:send', () => {
 <li>Segment（段）</li>
 </ol>
 <p>ES会把文档写入到磁盘中的Segment中</p>
-<p>每个段是不可变的（存储了倒排索引、文档存储、元数据等内容）</p>
+<p>每个段是不可变的（存储了倒排索引、文档存储、<strong>元数据</strong>等内容）</p>
+<blockquote>
 <p>和LSM树的SSTable极为相似</p>
+</blockquote>
 <ol>
 <li>倒排表</li>
 </ol>
 <p>倒排表是倒排索引的存储形式，用来快速检索词和文档之间的关系</p>
-<style>
-table.feishu-table td:nth-child(1), table.feishu-table th:nth-child(1) {
-    width: 33.33%;
-}
-table.feishu-table td:nth-child(2), table.feishu-table th:nth-child(2) {
-    width: 33.33%;
-}
-table.feishu-table td:nth-child(3), table.feishu-table th:nth-child(3) {
-    width: 33.33%;
-}
-table.feishu-table tr.width-enforcer {
-    height: 0 !important;
-    line-height: 0 !important;
-    padding: 0 !important;
-    visibility: hidden !important;
-    border: none !important;
-}
-table.feishu-table tr.width-enforcer td {
-    height: 0 !important;
-    padding: 0 !important;
-    border: none !important;
-}
-table.feishu-table {
-    border-collapse: collapse;
-    width: 100%;
-    margin-bottom: 16px;
-    table-layout: fixed;
-}
-table.feishu-table, table.feishu-table th, table.feishu-table td {
-    border: 1px solid #ddd;
-}
-table.feishu-table th, table.feishu-table td {
-    padding: 8px;
-    text-align: left;
-    vertical-align: top;
-    word-wrap: break-word;
-}
-table.feishu-table th {
-    font-weight: bold;
-}
-table.feishu-table img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-}
-</style>
-<table class="feishu-table">
-<tbody><tr class="width-enforcer">
-<td style="width:33.33%;"></td>
-<td style="width:33.33%;"></td>
-<td style="width:33.33%;"></td>
+<table>
+<thead>
+<tr>
+<th>分词</th>
+<th>文档id</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>az</td>
+<td>1，2，3</td>
+<td></td>
 </tr>
 <tr>
-<th>
-分词
-</th>
-<th>
-文档id
-</th>
-<th>
-
-
-</th>
-</tr>
-<tr>
-<td>
-az
-</td>
-<td>
-1，2，3
-</td>
-<td>
-
-</td>
-</tr>
-<tr>
-<td>
-阿巴阿巴
-</td>
-<td>
-3
-</td>
-<td>
-
-</td>
+<td>阿巴阿巴</td>
+<td>3</td>
+<td></td>
 </tr>
 </tbody></table>
-
 <ul>
-<li><p>每个词都会有一个倒排表，用于存储哪些文档包含整个词，以及这个词在文档中的位置（postings</p>
-</li>
-<li><p>倒排表会结合Posting List 来存储具体的位置信息</p>
-</li>
+<li>每个词都会有一个倒排表，用于存储哪些文档包含整个词，以及这个词在文档中的位置（postings</li>
+<li>倒排表会结合Posting List 来存储具体的位置信息</li>
 </ul>
 <ol>
 <li>FST（Finite State Transducer）</li>
 </ol>
 <p>FST是ES中用来优化倒排索引的一种数据结构，用来存储词典（Term Dictionary），提高查找效率</p>
 <ul>
-<li><p>Term Dictionary 存储所有的term（词条）FST通过有限状态机压缩这些词条</p>
-</li>
-<li><p>由于字典中的词条数量巨大，通过压缩减少存储空间</p>
-</li>
+<li>Term Dictionary 存储所有的<strong>term</strong>（词条）FST通过有限状态机压缩这些词条</li>
+<li>由于字典中的词条数量巨大，通过压缩减少存储空间</li>
 </ul>
 <ol>
 <li>Posting List</li>
 </ol>
 <p>用于存储某个词出现的文档ID以及其他相关信息（词频、位置等）</p>
 <ul>
-<li><p>结构： Posting List 中每一项都包含了文档ID和该词在文档中的出现位置</p>
-</li>
-<li><p>索引： 每个都会有一个对应的Posting List</p>
-</li>
+<li>结构： Posting List 中每一项都包含了文档ID和该词在文档中的出现位置</li>
+<li>索引： 每个都会有一个对应的Posting List</li>
 </ul>
 <h1 id="CRUD操作过程"><a href="#CRUD操作过程" class="headerlink" title="CRUD操作过程"></a>CRUD操作过程</h1><p>关于近实时问题：<a target="_blank" rel="noopener" href="https://blog.csdn.net/hugo_lei/article/details/106519069">https://blog.csdn.net/hugo_lei/article/details/106519069</a></p>
 <h2 id="Elasticsearch搜索引擎的索引构建过程？"><a href="#Elasticsearch搜索引擎的索引构建过程？" class="headerlink" title="Elasticsearch搜索引擎的索引构建过程？"></a>Elasticsearch搜索引擎的索引构建过程？</h2><ol>
-<li><p>解析文档，通过分词器将文档中的字段进行分词，存储到term dictionary中</p>
-</li>
-<li><p>ES会遍历term dictionary，查看这个分词是否已经被记录过。</p>
-</li>
-<li><p>为每一个term（分词）创建一个Posting List，并将该文档id以及该词存储进去</p>
-</li>
-<li><p>如果已经为该 term 创建了一个PostingList，直接合并该文档id进去</p>
-</li>
+<li>解析文档，通过分词器将文档中的字段进行分词，存储到term dictionary中</li>
+<li>ES会遍历term dictionary，查看这个分词是否已经被记录过。</li>
+<li>为每一个term（分词）创建一个Posting List，并将该文档id以及该词存储进去</li>
+<li>如果已经为该 term 创建了一个PostingList，直接合并该文档id进去</li>
 </ol>
 <h3 id="输入一个单词去查询会发生什么？"><a href="#输入一个单词去查询会发生什么？" class="headerlink" title="输入一个单词去查询会发生什么？"></a>输入一个单词去查询会发生什么？</h3><ol>
-<li><p>由一个协调节点分析 该索引 是存储在哪个 主分片上的</p>
+<li>由一个协调节点分析 该索引 是存储在哪个 主分片上的</li>
+<li>确定好后，将该单词进行分词</li>
+<li>从目标分片的Segment中使用FST 进行前缀遍历 定位 分词在倒排索引表中的偏移量</li>
+<li>通过偏移量查询到该 分词所在posting list位置，然后拿到文档id集合(DocID)</li>
+<li>将多个segment的id集合进行合并 </li>
+<li>通过相关算法计算相关性评分然后进行结果排序</li>
+<li>根据from和size进行分页与截断</li>
+<li>聚合分片结果（文档 ID 和评分，生成全局排序列表）获取原始文档</li>
+<li>执行高亮/聚合操作 返回 JSON格式搜索结果</li>
+</ol>
+<h2 id="如何通过文档id查询到对应索引下的文档？-id"><a href="#如何通过文档id查询到对应索引下的文档？-id" class="headerlink" title="如何通过文档id查询到对应索引下的文档？(_id)"></a>如何通过文档id查询到对应索引下的文档？(_id)</h2><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/0ce7d9254a80">https://www.jianshu.com/p/0ce7d9254a80</a></p>
+<blockquote>
+<p>总结： _id-&gt;确定分片-&gt;并行查询segment -&gt;使用最新的DocId读取文档</p>
+</blockquote>
+<ol>
+<li>通过hash 计算_id 是存储在哪个分片下的</li>
+<li>在分片内定位到Segment<ol>
+<li>并行查询所有Segment ，若找到一个或者多个（根据版本号/时间戳选取最新的）</li>
+<li>Segment元信息：Segment会记录该Segment存储的 DocID 范围</li>
+</ol>
 </li>
-<li><p>确定好后，将该单词进行分词</p>
-</li>
-<li><p>从目标分片的Segment中使用FST 进行前缀遍历 定位 分词在倒排索引表中的偏移量</p>
-</li>
-<li><p>通过偏移量查询到该 分词所在posting list位置，然后拿到文档id集合</p>
-</li>
-<li><p>将多个segment的id集合进行合并</p>
-</li>
-<li><p>通过相关算法计算相关性评分然后进行结果排序</p>
-</li>
-<li><p>根据from和size进行分页与截断</p>
-</li>
-<li><p>聚合分片结果（文档 ID 和评分，生成全局排序列表）获取原始文档</p>
-</li>
-<li><p>执行高亮/聚合操作 返回 JSON格式搜索结果</p>
+<li>在Segment内部查找文档<ol>
+<li>通过倒排索引，使用_id 查询得到DocID</li>
+<li>使用DocId<ol>
+<li>若查询非Text 数据，仅需程序Doc Values</li>
+<li>若需要查询JSON文件数据，或文本数据，需要使用正排索引拿到_source</li>
+</ol>
 </li>
 </ol>
-<h2 id="如何通过文档id查询到对应索引下的文档？"><a href="#如何通过文档id查询到对应索引下的文档？" class="headerlink" title="如何通过文档id查询到对应索引下的文档？"></a>如何通过文档id查询到对应索引下的文档？</h2><ol>
-<li><p>通过hash 计算_id 是存储在哪个分片下的</p>
-</li>
-<li><p>在分片内定位到Segment</p>
-</li>
-<li><p>Segment元信息：维护一个全局文档ID 到 Segment的映射表</p>
-</li>
-<li><p>使用跳表 快速定位文档所在Segment</p>
-</li>
-<li><p>在Segment内部查找文档</p>
-</li>
-<li><p>通过内部的 文档ID 到内部DocID的映射表</p>
-</li>
-<li><p>Lucene每个segment内部是按docID顺序存的，非常快</p>
 </li>
 </ol>
-<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">假设查询 GET /orders/_doc/123：</span><br><span class="line">分片路由​：</span><br><span class="line"><span class="built_in">hash</span>(123) % 3 → 分片1。</span><br><span class="line">分片内查找Segment​：</span><br><span class="line">检查分片1的 DocIDMap，发现 _id=123 在 SegmentA。</span><br><span class="line">若 SegmentA 被缓存，直接跳过磁盘IO。</span><br><span class="line">Segment内读取​：</span><br><span class="line">从 SegmentA 的 .doc 文件获取 DocID=5。</span><br><span class="line">从 .dvd（Doc Values）或 _source 中读取 DocID=5 的数据。</span><br><span class="line">返回结果​：</span><br><span class="line">组合字段内容，返回文档。</span><br></pre></td></tr></tbody></table></figure>
-
-
+<ul>
+<li><code>_id</code>字段的倒排索引缓存： <code>_id</code>字段的倒排索引常驻内存（如FST结构），加速<code>_id</code>到<code>docId</code>的映射。</li>
+<li>正排索引的懒加载： 仅当需要返回<code>_source</code>或存储字段时，才访问正排索引（若只查询<code>_id</code>或聚合字段，可能跳过正排索引）。</li>
+<li>Doc Values列存： 对非<code>text</code>字段，直接通过<code>docId</code>从列存（Doc Values）中读取值，避免解析<code>_source</code>。</li>
+</ul>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">假设查询 GET /orders/_doc/123：</span><br><span class="line">分片路由：</span><br><span class="line"><span class="built_in">hash</span>(123) % 3 → 分片1。</span><br><span class="line">分片内查找Segment：</span><br><span class="line">检查分片1的 DocIDMap，发现 _id=123 在 SegmentA。</span><br><span class="line">若 SegmentA 被缓存，直接跳过磁盘IO。</span><br><span class="line">Segment内读取：</span><br><span class="line">从 SegmentA 的 .doc 文件获取 DocID=5。</span><br><span class="line">从 .dvd（Doc Values）或 _source 中读取 DocID=5 的数据。</span><br><span class="line">返回结果：</span><br><span class="line">组合字段内容，返回文档。</span><br></pre></td></tr></tbody></table></figure>
 
 <h2 id="如何实现范围查询？"><a href="#如何实现范围查询？" class="headerlink" title="如何实现范围查询？"></a>如何实现范围查询？</h2><ol>
-<li><p>数值/日期范围：BKD树</p>
-</li>
-<li><p>字符串范围：字典序+倒排索引</p>
-</li>
-<li><p>日期范围转化为数值</p>
-</li>
+<li>数值/日期范围：BKD树</li>
+<li>字符串范围：字典序+倒排索引</li>
+<li>日期范围转化为数值</li>
 </ol>
 <h3 id="写入一个新文档过程？"><a href="#写入一个新文档过程？" class="headerlink" title="写入一个新文档过程？"></a>写入一个新文档过程？</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/hugo_lei/article/details/106519069">https://blog.csdn.net/hugo_lei/article/details/106519069</a></p>
 <ol>
-<li><p>新写入的文档会首先暂存到in-memory-buffer中（不可被搜索到）</p>
-</li>
-<li><p>同时写入事务日志（Translog）（实时fsync写入到磁盘中，顺序写</p>
-</li>
-<li><p>Refresh：默认每1秒，将内存缓冲区的数据生成新的segment并放入到文件系统缓存（可搜索）</p>
-</li>
+<li>新写入的文档会首先暂存到in-memory-buffer中（不可被搜索到）</li>
+<li>同时写入事务日志（Translog）（实时fsync写入到磁盘中，顺序写</li>
+<li>Refresh：默认每1秒，将内存缓冲区的数据生成新的segment并放入到文件系统缓存（可搜索）</li>
 </ol>
+<blockquote>
 <p>Page Cache中？ yep！</p>
+</blockquote>
 <ol>
 <li>Flush： 定期将文件系统中的段持久化到磁盘中</li>
 </ol>
+<blockquote>
 <p>接下来是困难版</p>
+</blockquote>
 <ol>
-<li><p>客户端发送写入请求</p>
+<li>客户端发送写入请求</li>
+<li>协调结点处理请求<ol>
+<li>解析索引名称，确定文档应该写入到哪个主分片</li>
+<li>根据routing 计算目标分片位置（通过_id 进行hash计算）</li>
+<li>转发请求到该分片所在主分片结点</li>
+</ol>
 </li>
-<li><p>协调结点处理请求</p>
+<li>主分片处理写入<ol>
+<li>文档先写入到in-memory-buffer中（不可被搜索、未持久化</li>
+</ol>
 </li>
-<li><p>解析索引名称，确定文档应该写入到哪个主分片</p>
+<li>写入事务日志（Translog<ol>
+<li>同步写入</li>
+<li>顺序写入磁盘</li>
+</ol>
 </li>
-<li><p>根据routing 计算目标分片位置（通过_id 进行hash计算）</p>
+<li>返回客户端ACK</li>
+<li>Refresh（数据可被搜索</li>
+<li>Flush（30分钟/translog写满</li>
+<li>Segment Merge（段合并<ol>
+<li>后台自动执行</li>
+<li>不影响搜索（旧segment在合并完成后才被替换</li>
+</ol>
 </li>
-<li><p>转发请求到该分片所在主分片结点</p>
-</li>
-<li><p>主分片处理写入</p>
-</li>
-<li><p>文档先写入到in-memory-buffer中（不可被搜索、未持久化</p>
-</li>
-<li><p>写入事务日志（Translog</p>
-</li>
-<li><p>同步写入</p>
-</li>
-<li><p>顺序写入磁盘</p>
-</li>
-<li><p>返回客户端ACK</p>
-</li>
-<li><p>Refresh（数据可被搜索</p>
-</li>
-<li><p>Flush（30分钟/translog写满</p>
-</li>
-<li><p>Segment Merge（段合并</p>
-</li>
-<li><p>后台自动执行</p>
-</li>
-<li><p>不影响搜索（旧segment在合并完成后才被替换</p>
-</li>
-<li><p>副本分片同步</p>
-</li>
-<li><p>执行主分片相同操作</p>
-</li>
-<li><p>wait_for_active_shards：可配置必须有多少分片可用才返回成功</p>
+<li>副本分片同步<ol>
+<li>执行主分片相同操作</li>
+<li><code>wait_for_active_shards</code>：可配置必须有多少分片可用才返回成功</li>
+</ol>
 </li>
 </ol>
 <h3 id="删除一个文档过程"><a href="#删除一个文档过程" class="headerlink" title="删除一个文档过程"></a>删除一个文档过程</h3><ol>
-<li><p>删除请求到达</p>
-</li>
-<li><p>不会物理删除，而是打上一个标记，同时写入到translog中（查询时会过滤</p>
-</li>
-<li><p>刷新（flush）和合并（merge）时真正删除</p>
-</li>
+<li>删除请求到达</li>
+<li>不会物理删除，而是打上一个标记，同时写入到translog中（查询时会过滤</li>
+<li>刷新（flush）和合并（merge）时真正删除</li>
 </ol>
-<h3 id="更新操作"><a href="#更新操作" class="headerlink" title="更新操作"></a>更新操作</h3><p>本质时删除 + 新增</p>
+<h3 id="更新操作"><a href="#更新操作" class="headerlink" title="更新操作"></a>更新操作</h3><blockquote>
+<p>本质时删除 + 新增</p>
+</blockquote>
 <ol>
-<li><p>先打上删除标记</p>
-</li>
-<li><p>将新文档内容写入到in-memory-buffer和translog中</p>
-</li>
-<li><p>更新之后，文档的_version字段会+1，通过乐观锁保证并发一致性</p>
-</li>
-<li><p>后续通过merge清理旧数据</p>
-</li>
+<li>先查询旧文档打上删除标记</li>
+<li>将新文档内容写入到in-memory-buffer和translog中</li>
+<li>更新之后，文档的_version字段会+1，通过乐观锁保证并发一致性</li>
+<li>后续通过merge清理旧数据</li>
 </ol>
 <h3 id="什么时候进行Segment合并"><a href="#什么时候进行Segment合并" class="headerlink" title="什么时候进行Segment合并"></a>什么时候进行Segment合并</h3><ul>
-<li><p>后台自动合并</p>
-</li>
-<li><p>Flush时触发</p>
-</li>
-<li><p>手动触发</p>
-</li>
-<li><p>基于segment数量和大小（数量/存储大小达到阈值</p>
-</li>
+<li>后台自动合并</li>
+<li>Flush时触发</li>
+<li>手动触发</li>
+<li>基于segment数量和大小（数量/存储大小达到阈值</li>
 </ul>
 <h1 id="Lucene"><a href="#Lucene" class="headerlink" title="Lucene"></a>Lucene</h1><h2 id="倒排索引"><a href="#倒排索引" class="headerlink" title="倒排索引"></a>倒排索引</h2><h3 id="FST"><a href="#FST" class="headerlink" title="FST"></a>FST</h3><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7226710109585424440">https://juejin.cn/post/7226710109585424440</a></p>
+<blockquote>
 <p>FST（有限状态机）用于快速检索、前缀匹配、范围查询</p>
 <p>ES中主要用于存储 词典</p>
+</blockquote>
 <p>为什么要使用FST？</p>
 <ul>
-<li><p>倒排索引中词典十分庞大，需要通过关键字快速定位Posting List</p>
-</li>
-<li><p>兼顾 小空间占用 + 快速查询</p>
-</li>
+<li>倒排索引中词典十分庞大，需要通过关键字快速定位Posting List</li>
+<li>兼顾 小空间占用 + 快速查询</li>
 </ul>
+<h4 id="FST的结构和组织方式"><a href="#FST的结构和组织方式" class="headerlink" title="FST的结构和组织方式"></a>FST的结构和组织方式</h4><blockquote>
 <p>可以理解为压缩版的有向图（共享前缀和后缀）</p>
+</blockquote>
 <p>核心元素</p>
 <ul>
-<li><p>节点：  一个状态，代表某个字符读到这里了</p>
-</li>
-<li><p>边： 从一个节点到另一个节点的跳转，携带一个字符/字符范围</p>
-</li>
-<li><p>输出： 走到某个路径时累加的值</p>
-<ul>
+<li>节点：  一个状态，代表某个字符读到这里了</li>
+<li>边： 从一个节点到另一个节点的跳转，携带一个字符/字符范围</li>
+<li>输出： 走到某个路径时累加的值<ul>
 <li>所有以该前缀开头的词项的公共信息（如内存地址）-》前缀优化共享</li>
 <li>权重（如概率、分数），通过累加得到路径总权重。</li>
 <li>该词在倒排索引中的 文件偏移量（File Pointer）。</li>
@@ -584,92 +445,141 @@ az
 </li>
 </ul>
 <ol>
-<li><p>前缀共享</p>
-</li>
-<li><p>后缀合并</p>
-</li>
+<li>前缀共享</li>
+<li>后缀合并</li>
 </ol>
-<p>通过前缀遍历快速找到关键词，然后拿到Posting List然后拿到文档ID</p>
-<p>思考： 前缀遍历？那 apple 构建状态机后， 使用 pl 如何搜索呢?</p>
+<h4 id="搜索关键词时，怎么使用FST？"><a href="#搜索关键词时，怎么使用FST？" class="headerlink" title="搜索关键词时，怎么使用FST？"></a>搜索关键词时，怎么使用FST？</h4><p>通过前缀遍历快速找到关键词，然后拿到Posting List然后拿到文档ID</p>
+<p><strong>思考： 前缀遍历？那 apple 构建状态机后， 使用 pl 如何搜索呢?</strong></p>
+<blockquote>
 <p>害，pl 和apple已经是两个单词了，且没有共用一个前缀，所以无法搜到，除非把apple五个字母都进行拆分</p>
+</blockquote>
+<blockquote>
 <p>实在要搞的话，可以建立反向索引或者使用高级搜索，遍历Segment</p>
+</blockquote>
+<h4 id="如何支持模糊搜索？-（这里不同于MySQL的模糊搜索）"><a href="#如何支持模糊搜索？-（这里不同于MySQL的模糊搜索）" class="headerlink" title="如何支持模糊搜索？ （这里不同于MySQL的模糊搜索）"></a>如何支持模糊搜索？ （这里不同于MySQL的模糊搜索）</h4><blockquote>
 <p>比如使用appld 可以搜到apple</p>
+</blockquote>
 <ul>
-<li><p>开始遍历时，记录当前位置和当前误差次数。</p>
-</li>
-<li><p>遇到不同字符时，不是直接失败，而是：</p>
-<ul>
-<li>如果误差没超上限（比如1次），尝试走插入/删除/替换的可能路径！</li>
+<li>开始遍历时，记录当前位置和当前误差次数。</li>
+<li>遇到不同字符时，不是直接失败，而是：<ul>
+<li>如果误差没超上限（比如1次），<strong>尝试走插入/删除/替换</strong>的可能路径！</li>
 </ul>
 </li>
-<li><p>找到匹配路径后，返回最接近的词</p>
-</li>
+<li>找到匹配路径后，返回最接近的词</li>
 </ul>
-<ol>
-<li><p>Trie只能共享前缀，内存消耗较大，每个节点存储一个字符串</p>
-</li>
-<li><p>通过前缀遍历得到的 词组 + 输出值便能得到 该词在倒排索引表中的偏移量，无需是使用Hash定位（甚至不需要解决hash冲突）</p>
-</li>
-<li><p>查找效率更高，无需注意哈希函数计算以及冲突问题</p>
-</li>
-<li><p>Hash不关心顺序</p>
-</li>
-<li><p>设计不当时，Hash内存开销更大</p>
-</li>
-<li><p>通过前缀遍历进行匹配</p>
-</li>
-<li><p>若设置了模糊查询可以忍受一定程度的不同（比如app-》ape）</p>
-</li>
-<li><p>走完整个词（比如app 走到 p时，发现该边指向节点接受状态（此时累计的输出值就是posting list的起始位置</p>
+<h4 id="FST和Trie、Hash表的区别，为什么不是Trie？为什么不用Hash"><a href="#FST和Trie、Hash表的区别，为什么不是Trie？为什么不用Hash" class="headerlink" title="FST和Trie、Hash表的区别，为什么不是Trie？为什么不用Hash"></a>FST和Trie、Hash表的区别，为什么不是Trie？为什么不用Hash</h4><ol>
+<li>Trie只能共享前缀，内存消耗较大，每个节点存储一个字符串</li>
+<li>通过前缀遍历得到的 词组 + 输出值便能得到 该词在倒排索引表中的偏移量，无需是使用Hash定位（甚至不需要解决hash冲突）<ol>
+<li>查找效率更高，无需注意哈希函数计算以及冲突问题</li>
+<li>Hash不关心顺序</li>
+<li>设计不当时，Hash内存开销更大</li>
+</ol>
 </li>
 </ol>
+<h4 id="FST查询过程，如何快速查询？如何找到一个词的posting-list起始位置"><a href="#FST查询过程，如何快速查询？如何找到一个词的posting-list起始位置" class="headerlink" title="FST查询过程，如何快速查询？如何找到一个词的posting list起始位置"></a>FST查询过程，如何快速查询？如何找到一个词的posting list起始位置</h4><ol>
+<li>通过前缀遍历进行匹配</li>
+<li>若设置了模糊查询可以忍受一定程度的不同（比如app-》ape）</li>
+<li>走完整个词（比如app 走到 p时，发现该边指向节点接受状态（此时累计的输出值就是posting list的起始位置</li>
+</ol>
+<blockquote>
 <p>积累值会变化</p>
+</blockquote>
 <p>小demo体验一下创建过程</p>
 <p><a target="_blank" rel="noopener" href="http://examples.mikemccandless.com/fst.py?terms=mop/0%0D%0Adat/1%0D%0Adog/2%0D%0Ademory/3%0D%0Amax/4&amp;cmd=Build+it!">http://examples.mikemccandless.com/fst.py?terms=mop%2F0%0D%0Adat%2F1%0D%0Adog%2F2%0D%0Ademory%2F3%0D%0Amax%2F4&amp;cmd=Build+it%21</a></p>
+<blockquote>
 <p>番外？</p>
-<figure class="highlight plaintext"><figcaption><span>Text</span></figcaption><table><tbody><tr><td class="code"><pre><span class="line"> FST结构（有序！）：</span><br><span class="line"></span><br><span class="line"> a --&gt; aa --&gt; apple</span><br><span class="line"> a --&gt; ab --&gt; about</span><br><span class="line"> b --&gt; ba --&gt; base</span><br><span class="line"> b --&gt; bb --&gt; boss</span><br><span class="line"> c --&gt; ca --&gt; car</span><br><span class="line"></span><br><span class="line">比如 range ["ab", "bb"]:</span><br><span class="line">- 从"ab"找到起点</span><br><span class="line">- 收 about -&gt; base -&gt; boss</span><br><span class="line">- 到了"car"，跳出</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+</blockquote>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line"> FST结构（有序！）：</span><br><span class="line"></span><br><span class="line"> a --&gt; aa --&gt; apple</span><br><span class="line"> a --&gt; ab --&gt; about</span><br><span class="line"> b --&gt; ba --&gt; base</span><br><span class="line"> b --&gt; bb --&gt; boss</span><br><span class="line"> c --&gt; ca --&gt; car</span><br><span class="line"></span><br><span class="line">比如 range ["ab", "bb"]:</span><br><span class="line">- 从"ab"找到起点</span><br><span class="line">- 收 about -&gt; base -&gt; boss</span><br><span class="line">- 到了"car"，跳出</span><br></pre></td></tr></tbody></table></figure>
 
+<h4 id="增删改时，FST变化"><a href="#增删改时，FST变化" class="headerlink" title="增删改时，FST变化"></a>增删改时，FST变化</h4><p>新增文档</p>
+<ul>
+<li><strong>每次新增文档时，并不会修改已有 segment 的 FST</strong></li>
+<li>而是生成一个新的 FST（对应新的 segment）</li>
+</ul>
+<p>删除文档时</p>
+<ul>
+<li>Lucene 给对应的 DocID 打上 <strong>delete 标记</strong>（bitmap）</li>
+<li>Posting list / FST 本身 <strong>不变</strong></li>
+<li>查询阶段跳过已删除 DocID</li>
+</ul>
+<p>更新文档时</p>
+<ul>
+<li>标记旧文档删除（不会动老 FST）</li>
+<li>插入新文档 -&gt; 写入内存 -&gt; flush 生成新 segment + 新 FST</li>
+</ul>
+<h4 id="merge-FST会做什么？"><a href="#merge-FST会做什么？" class="headerlink" title="merge FST会做什么？"></a>merge FST会做什么？</h4><ul>
+<li>合并多个 segment（包含它们的倒排表 + FST）</li>
+<li>去除被删除文档（只保留有效 docID）</li>
+<li>重建新的倒排索引和一个新的 <strong>合并后的 FST</strong></li>
+</ul>
+<h3 id="Posting-List"><a href="#Posting-List" class="headerlink" title="Posting List"></a>Posting List</h3><blockquote>
+<p>用于记录每个分词 出现在哪些文档的id集合</p>
+</blockquote>
+<h2 id="Segment（Import！）"><a href="#Segment（Import！）" class="headerlink" title="Segment（Import！）"></a>Segment（Import！）</h2><p><a target="_blank" rel="noopener" href="https://github.dev/apache/lucene">https://github.dev/apache/lucene</a></p>
+<p><a target="_blank" rel="noopener" href="https://lucene.apache.org/core/9_0_0/core/org/apache/lucene/codecs/lucene90/package-summary.html#Segments">https://lucene.apache.org/core/9_0_0/core/org/apache/lucene/codecs/lucene90/package-summary.html#Segments</a></p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">Segment</span><br><span class="line">├── .tim (Term Dictionary, FST)</span><br><span class="line">├── .tip (Skip List)</span><br><span class="line">├── .doc (Document BitSet)</span><br><span class="line">├── .pos (Positions)</span><br><span class="line">├── .dv (Doc Values)</span><br><span class="line">├── .fdt / .fdx (Stored Fields, 正排索引)</span><br></pre></td></tr></tbody></table></figure>
 
-
-<h3 id="Posting-List"><a href="#Posting-List" class="headerlink" title="Posting List"></a>Posting List</h3><p>用于记录每个分词 出现在哪些文档的id集合</p>
-<h2 id="Segment（Import！）"><a href="#Segment（Import！）" class="headerlink" title="Segment（Import！）"></a>Segment（Import！）</h2><p>核心组成部分</p>
+<p>核心组成部分</p>
 <ol>
-<li>倒排索引（FST+Posting List）</li>
+<li>倒排索引（FST+Posting List）<ol>
 <li>词项字典 （存储所有的 词项 term ，使用 FST 压缩</li>
 <li>倒排列表（记录 词项 对应的 文档ID 以及位置信息（词频、偏移量）</li>
 <li>存储词项位置和负载（用于短语查询和高亮</li>
 </ol>
+</li>
+</ol>
+<blockquote>
 <p>加速全文搜索</p>
+</blockquote>
 <ol>
-<li>正排索引（Doc Values）</li>
+<li>Doc Values<ol>
 <li>存储字段的列式数据（numeric、keyword等）</li>
 <li>存储元数据（最大值、最小值、压缩方式</li>
 </ol>
+</li>
+</ol>
+<blockquote>
 <p>加速排序、聚合、脚本计算，按照 列式 存储字段</p>
+</blockquote>
 <ol>
-<li><p>文档存储<br>用于存储原始文档内容（_source）用于返回搜索结果</p>
+<li>文档存储( 使用正排索引读取 DocId -&gt; _source<ol>
+<li><blockquote>
+<p>用于存储原始文档内容（_source）用于返回搜索结果</p>
+</blockquote>
 </li>
 <li><p>存储原始JSON文档</p>
 </li>
 <li><p>存储文档的元信息（偏移量、压缩方式</p>
 </li>
-<li><p>文档ID映射 (DocID -&gt; _id)<br>内部简历DocID 和用户 _id的映射关系</p>
+</ol>
+</li>
+<li>文档ID映射 (DocID -&gt; _id)<ol>
+<li><blockquote>
+<p>内部简历DocID 和用户 _id的映射关系</p>
+</blockquote>
 </li>
 <li><p>Segment的元信息，DocID 范围</p>
 </li>
-<li><p>Lucene内部通过 DocIDMap维护 _id 到DocID的关联</p>
+<li><p>_id 通过倒排索引与 DocID 关联</p>
+</li>
+<li><p>DocID 通过正排索引拿到文档</p>
 </li>
 </ol>
-<h2 id="BKD树"><a href="#BKD树" class="headerlink" title="BKD树"></a>BKD树</h2><p>K-D 树 + B+树混合</p>
-<p><img src="/2025/03/12/ElasticSearch/I1pab8FtIoAwXMx5v7ncaf9FnOe.png" alt="image" style="max-width:100%;height:auto;display:block;margin:0 auto;" loading="lazy"> <!-- 图片未成功捕获 --></p>
-<ul>
-<li><p>适用场景：数值过滤、地理围栏、时间区间分析等</p>
 </li>
-<li><p>优势​：</p>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://github.dev/apache/lucene">https://github.dev/apache/lucene</a>   ———-&gt; codec-&gt; SegmentInfo.java</p>
+<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">SegmentInfo</span> {</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">NO</span> <span class="operator">=</span> -<span class="number">1</span>;  <span class="comment">// 表示不存在（如无norms、无删除文档）</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">YES</span> <span class="operator">=</span> <span class="number">1</span>;   <span class="comment">// 表示存在（如有norms、有删除文档）</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> String name;      <span class="comment">// 唯一segment名称（如"_0"）</span></span><br><span class="line"><span class="keyword">private</span> <span class="type">int</span> maxDoc;            <span class="comment">// segment中的文档总数（含删除文档）</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> Directory dir;    <span class="comment">// segment所在的存储目录</span></span><br><span class="line"><span class="keyword">private</span> <span class="type">boolean</span> isCompoundFile; <span class="comment">// 是否使用复合文件格式(.cfs)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="type">byte</span>[] id;       <span class="comment">// segment的唯一二进制ID</span></span><br><span class="line"><span class="keyword">private</span> Codec codec;           <span class="comment">// 使用的编解码器</span></span><br><span class="line"><span class="keyword">private</span> Map&lt;String, String&gt; diagnostics; <span class="comment">// 诊断信息（调试用）</span></span><br><span class="line"><span class="keyword">private</span> Map&lt;String, String&gt; attributes;  <span class="comment">// 自定义扩展属性</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> Sort indexSort;  <span class="comment">// segment的排序规则（非null表示预排序）</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="BKD树"><a href="#BKD树" class="headerlink" title="BKD树"></a>BKD树</h2><blockquote>
+<p>K-D 树 + B+树混合</p>
+</blockquote>
+<p><img src="https://qcn3hg7hgio7.feishu.cn/space/api/box/stream/download/asynccode/?code=M2E0ZTQyOTAzZjZiZjczMzgzNDVmZWIxMjRiYTEwNDRfUU1GeEtRV1F0QlI2MlZIaktBdUFkcEs2U0xDZ0hIeFVfVG9rZW46STFwYWI4RnRJb0F3WE14NXY3bmNhZjlGbk9lXzE3NDk1NDY4NjI6MTc0OTU1MDQ2Ml9WNA" alt="img"></p>
 <ul>
-<li>高效磁盘存储​：数据按块（Block）组织，减少随机 I/O。</li>
-<li>查询优化​：剪枝策略快速跳过不匹配的数据块。</li>
-<li>压缩存储​：对数值类型（如整数、浮点数）采用增量编码压缩。</li>
+<li>适用场景：数值过滤、地理围栏、时间区间分析等</li>
+<li>优势：<ul>
+<li>高效磁盘存储：数据按块（Block）组织，减少随机 I/O。</li>
+<li>查询优化：剪枝策略快速跳过不匹配的数据块。</li>
+<li>压缩存储：对数值类型（如整数、浮点数）采用增量编码压缩。</li>
 </ul>
 </li>
 </ul>
@@ -678,394 +588,263 @@ az
 <h3 id="Memtable"><a href="#Memtable" class="headerlink" title="Memtable"></a>Memtable</h3><p>存储在内存中，用于保存最近更新的数据</p>
 <p>通常使用红黑树/跳表数据结构实现，按照Key有序地组织这些数据</p>
 <p>写入的时候通常会追加一份WAL（Write Ahead log）预写日志，保证宕机恢复</p>
+<blockquote>
 <p>当memtable达到一定大小时，会flush到磁盘中</p>
+</blockquote>
 <h3 id="Immutable-memtable"><a href="#Immutable-memtable" class="headerlink" title="Immutable memtable"></a>Immutable memtable</h3><p>memtable到sstable的一个中间状态</p>
 <ul>
-<li><p>当memtable满了之后，不会直接删除，会变为一个只读的immutable memetable</p>
-</li>
-<li><p>同时创建一个新的memtable用来接收写请求</p>
-</li>
-<li><p>这个immutable memtable会通过后台线程刷盘，变为sstable</p>
-</li>
+<li>当memtable满了之后，不会直接删除，会变为一个只读的immutable memetable</li>
+<li>同时创建一个新的memtable用来接收写请求</li>
+<li>这个immutable memtable会通过后台线程刷盘，变为sstable</li>
 </ul>
 <p>为什么这么设计？</p>
 <ol>
-<li><p>写操作不中断</p>
-</li>
-<li><p>异步刷盘</p>
-</li>
+<li>写操作不中断</li>
+<li>异步刷盘</li>
 </ol>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h3 id="SSTable"><a href="#SSTable" class="headerlink" title="SSTable"></a>SSTable</h3><ul>
-<li><p>当Immutable memeTable刷盘到磁盘中，形成一个SSTable文件</p>
-</li>
-<li><p>由于是顺序写到磁盘，写性能极高</p>
-</li>
-<li><p>SSTable是不可变的，只能增加或者合并产生新的SSTable</p>
-</li>
+<h3 id="SSTable"><a href="#SSTable" class="headerlink" title="SSTable"></a>SSTable</h3><ul>
+<li>当Immutable memeTable刷盘到磁盘中，形成一个SSTable文件</li>
+<li>由于是顺序写到磁盘，写性能极高</li>
+<li>SSTable是不可变的，只能增加或者合并产生新的SSTable</li>
 </ul>
 <p>主要包含内容</p>
 <ol>
-<li><p>Key/value数据（有序</p>
-</li>
-<li><p>稀疏索引（快速定位</p>
-</li>
-<li><p>布隆过滤器（快速判断key是否存在</p>
-</li>
-<li><p>元数据（校验数据，时间戳等–》因为可能存在重复key，更新时间最新的才是有效key</p>
-</li>
+<li>Key/value数据（有序</li>
+<li>稀疏索引（快速定位</li>
+<li>布隆过滤器（快速判断key是否存在</li>
+<li>元数据（校验数据，时间戳等–》因为可能存在重复key，更新时间最新的才是有效key</li>
 </ol>
 <h3 id="Compact策略"><a href="#Compact策略" class="headerlink" title="Compact策略"></a>Compact策略</h3><ul>
 <li>Size-tiered 策略</li>
 </ul>
-<p><img src="/2025/03/12/ElasticSearch/QqBrbhfgnoBWQ3x1QQKcxNB4nn7.png" alt="image" style="max-width:100%;height:auto;display:block;margin:0 auto;" loading="lazy"> <!-- 图片未成功捕获 --></p>
+<p><img src="/2025/03/12/ElasticSearch/image-20250610171731711.png" alt="image-20250610171731711"></p>
 <ul>
 <li>Leveled 策略</li>
 </ul>
-<p><img src="/2025/03/12/ElasticSearch/Mf8Abb3Lvoii5exZCgpcZRMbnIf.png" alt="image" style="max-width:100%;height:auto;display:block;margin:0 auto;" loading="lazy"> <!-- 图片未成功捕获 --></p>
+<p><img src="/2025/03/12/ElasticSearch/image-20250610171736656.png" alt="image-20250610171736656"></p>
 <p>关键点：</p>
 <ol>
-<li><p>读放大</p>
-</li>
-<li><p>写放大</p>
-</li>
-<li><p>空间放大</p>
-</li>
+<li>读放大</li>
+<li>写放大</li>
+<li>空间放大</li>
 </ol>
-<hr>
 <p>Level 0： 刚flush出来的小sstable文件，不要求有序，且key之间范围可以重叠</p>
 <p>Leve 1 及以上： 每一层文件的key范围不重叠，数据量更大</p>
-<h3 id="增删查改操作"><a href="#增删查改操作" class="headerlink" title="增删查改操作"></a>增删查改操作</h3><p>由于LSM树初衷就是应对写操作极为频繁的场景</p>
+<h3 id="增删查改操作"><a href="#增删查改操作" class="headerlink" title="增删查改操作"></a>增删查改操作</h3><h5 id="插入操作"><a href="#插入操作" class="headerlink" title="插入操作"></a>插入操作</h5><p>由于LSM树初衷就是应对写操作极为频繁的场景</p>
 <p>插入操作只需要无脑写入memtable就行了</p>
-<p>采用逻辑删除</p>
+<h5 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h5><p>采用逻辑删除</p>
 <p>写一条墓碑标记到 WAL 和 memtable中</p>
+<blockquote>
 <p>真正删除该数据是在compaction时完成</p>
+</blockquote>
 <p>也就是说物理数据在memtable中还是磁盘中，还是不存在，无需关系</p>
 <p>compaction过程会进行删除</p>
-<ol>
-<li><p>先查memtable（因为是最新的操作）</p>
-</li>
-<li><p>再查immutable memtable</p>
-</li>
-<li><p>还没有找到则按照level 0 - n依次查找</p>
-</li>
+<h5 id="查询操作"><a href="#查询操作" class="headerlink" title="查询操作"></a>查询操作</h5><ol>
+<li>先查memtable（因为是最新的操作）</li>
+<li>再查immutable memtable</li>
+<li>还没有找到则按照level 0 - n依次查找</li>
 </ol>
 <ul>
-<li><p>查询时要处理墓碑标记（如果找到墓碑，就算有旧数据，也算被删除）</p>
-</li>
-<li><p>随着level越高，文件越少、范围越大（减少查找代价）</p>
-</li>
+<li>查询时要处理<strong>墓碑标记</strong>（如果找到墓碑，就算有旧数据，也算被删除）</li>
+<li>随着level越高，文件越少、范围越大（减少查找代价）</li>
 </ul>
-<ol>
-<li><p>写入WAL</p>
-</li>
-<li><p>写入memtable</p>
-</li>
-<li><p>待修改数据在memtable中，直接覆盖</p>
-</li>
-<li><p>带修改数据在磁盘中 直接写在memtable中，后续合并时新数据覆盖旧</p>
-</li>
-<li><p>该数据不存在，update操作变为insert</p>
+<h5 id="更新操作-1"><a href="#更新操作-1" class="headerlink" title="更新操作"></a>更新操作</h5><ol>
+<li>写入WAL</li>
+<li>写入memtable<ol>
+<li>待修改数据在memtable中，直接覆盖</li>
+<li>带修改数据在磁盘中 直接写在memtable中，后续合并时新数据覆盖旧</li>
+<li>该数据不存在，update操作变为insert</li>
+</ol>
 </li>
 </ol>
+<blockquote>
 <p>其实update和insert操作在这里貌似就是相同的</p>
-<h3 id="有墓碑标记的数据什么时候被清除呢？会不会永远无法清除？"><a href="#有墓碑标记的数据什么时候被清除呢？会不会永远无法清除？" class="headerlink" title="有墓碑标记的数据什么时候被清除呢？会不会永远无法清除？"></a>有墓碑标记的数据什么时候被清除呢？会不会永远无法清除？</h3><p>SSTable合并时删除带有墓碑标记的数据</p>
-<p>由于LSM树的机制，不同层可能包含相同的key</p>
+</blockquote>
+<h3 id="有墓碑标记的数据什么时候被清除呢？会不会永远无法清除？"><a href="#有墓碑标记的数据什么时候被清除呢？会不会永远无法清除？" class="headerlink" title="有墓碑标记的数据什么时候被清除呢？会不会永远无法清除？"></a>有墓碑标记的数据什么时候被清除呢？会不会永远无法清除？</h3><blockquote>
+<p>SSTable合并时删除带有墓碑标记的数据</p>
+</blockquote>
+<h4 id="为什么不能马上删除？"><a href="#为什么不能马上删除？" class="headerlink" title="为什么不能马上删除？"></a>为什么不能马上删除？</h4><p>由于LSM树的机制，不同层可能包含相同的key</p>
 <p>直接删除可能会漏删老版本，或者删除代价极大</p>
-<ul>
-<li><p>定期强制压缩</p>
-</li>
-<li><p>设置墓碑最大存活时间</p>
-<ul>
+<h4 id="解决删除不及时的办法"><a href="#解决删除不及时的办法" class="headerlink" title="解决删除不及时的办法"></a>解决删除不及时的办法</h4><ul>
+<li>定期强制压缩</li>
+<li>设置墓碑最大存活时间<ul>
 <li>创建一个新SSTable，然后进行拷贝</li>
 </ul>
 </li>
 </ul>
-<h1 id="ElasticSearch（Lucene）-与LSM的异同"><a href="#ElasticSearch（Lucene）-与LSM的异同" class="headerlink" title="ElasticSearch（Lucene） 与LSM的异同"></a>ElasticSearch（Lucene） 与LSM的异同</h1><style>
-table.feishu-table td:nth-child(1), table.feishu-table th:nth-child(1) {
-    width: 16.37%;
-}
-table.feishu-table td:nth-child(2), table.feishu-table th:nth-child(2) {
-    width: 39.72%;
-}
-table.feishu-table td:nth-child(3), table.feishu-table th:nth-child(3) {
-    width: 43.91%;
-}
-table.feishu-table tr.width-enforcer {
-    height: 0 !important;
-    line-height: 0 !important;
-    padding: 0 !important;
-    visibility: hidden !important;
-    border: none !important;
-}
-table.feishu-table tr.width-enforcer td {
-    height: 0 !important;
-    padding: 0 !important;
-    border: none !important;
-}
-table.feishu-table {
-    border-collapse: collapse;
-    width: 100%;
-    margin-bottom: 16px;
-    table-layout: fixed;
-}
-table.feishu-table, table.feishu-table th, table.feishu-table td {
-    border: 1px solid #ddd;
-}
-table.feishu-table th, table.feishu-table td {
-    padding: 8px;
-    text-align: left;
-    vertical-align: top;
-    word-wrap: break-word;
-}
-table.feishu-table th {
-    font-weight: bold;
-}
-table.feishu-table img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-}
-</style>
-<table class="feishu-table">
-<tbody><tr class="width-enforcer">
-<td style="width:16.37%;"></td>
-<td style="width:39.72%;"></td>
-<td style="width:43.91%;"></td>
+<h1 id="ElasticSearch（Lucene）-与LSM的异同"><a href="#ElasticSearch（Lucene）-与LSM的异同" class="headerlink" title="ElasticSearch（Lucene） 与LSM的异同"></a>ElasticSearch（Lucene） 与LSM的异同</h1><table>
+<thead>
+<tr>
+<th></th>
+<th>LSM树</th>
+<th>Lucene（ES）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>写入</td>
+<td>先写WAL文件再写入MemTable</td>
+<td>先写Translog，再写入in-memroy-buffer</td>
 </tr>
 <tr>
-<th>
-
-
-</th>
-<th>
-LSM树
-</th>
-<th>
-Lucene（ES）
-</th>
+<td>刷盘</td>
+<td>MemTable满了刷入immutable 然后刷入sstable</td>
+<td>in-mm-buffer满了（或1秒后）刷入Page Cache然后刷入磁盘</td>
 </tr>
 <tr>
-<td>
-写入
-</td>
-<td>
-先写WAL文件再写入MemTable
-</td>
-<td>
-先写Translog，再写入in-memroy-buffer
-</td>
+<td>查询</td>
+<td>先mt，再imt，再sst（读放大严重）</td>
+<td>先内存中的segment、再磁盘中的segment 加入Caching优化机制，优先读最新段</td>
 </tr>
 <tr>
-<td>
-刷盘
-</td>
-<td>
-MemTable满了刷入immutable 然后刷入sstable
-</td>
-<td>
-in-mm-buffer满了（或1秒后）刷入Page Cache然后刷入磁盘
-</td>
+<td>删除</td>
+<td>墓碑、懒回收、合并清除</td>
+<td>墓碑，懒回收，合并清除</td>
 </tr>
 <tr>
-<td>
-查询
-</td>
-<td>
-先mt，再imt，再sst（读放大严重）
-</td>
-<td>
-先内存中的segment、再磁盘中的segment
-加入Caching优化机制，优先读最新段
-</td>
+<td>合并</td>
+<td>Compaction</td>
+<td>Segment Merge</td>
 </tr>
 <tr>
-<td>
-删除
-</td>
-<td>
-墓碑、懒回收、合并清除
-</td>
-<td>
-墓碑，懒回收，合并清除
-</td>
+<td>数据</td>
+<td>LSMKey/value数据（有序稀疏索引（快速定位布隆过滤器（快速判断key是否存在元数据（校验数据，时间戳等–》因为可能存在重复key，更新时间最新的才是有效key</td>
+<td>倒排索引（FST + Posting List)文档存储（JSON） <strong>元数据</strong></td>
 </tr>
 <tr>
-<td>
-合并
-</td>
-<td>
-Compaction
-</td>
-<td>
-Segment Merge
-</td>
+<td>查询优化</td>
+<td>布隆过滤器、二分查找</td>
+<td>FST词典、跳表、缓存</td>
 </tr>
 <tr>
-<td>
-数据
-</td>
-<td>
-LSM
-
-<ol>
-<li><p>Key/value数据（有序</p>
-</li>
-<li><p>稀疏索引（快速定位</p>
-</li>
-<li><p>布隆过滤器（快速判断key是否存在</p>
-</li>
-<li><p>元数据（校验数据，时间戳等–》因为可能存在重复key，更新时间最新的才是有效key</p>
-</li></ol></td>
-<td>
-倒排索引（FST + Posting List)
-
-<p>文档存储（JSON）<br>元数据</p>
-</td>
+<td>数据不可修改</td>
+<td>是</td>
+<td>是</td>
 </tr>
 <tr>
-<td>
-查询优化
-</td>
-<td>
-布隆过滤器、二分查找
-</td>
-<td>
-FST词典、跳表、缓存
-</td>
+<td>空间回收</td>
+<td>合并时清理墓碑、去重</td>
+<td>合并时清理已删除文档</td>
 </tr>
 <tr>
-<td>
-数据不可修改
-</td>
-<td>
-是
-</td>
-<td>
-是
-</td>
-</tr>
-<tr>
-<td>
-空间回收
-</td>
-<td>
-合并时清理墓碑、去重
-</td>
-<td>
-合并时清理已删除文档
-</td>
-</tr>
-<tr>
-<td>
-关注点
-</td>
-<td>
-写多读少（SSTable有序）
-</td>
-<td>
-写少读多
-</td>
+<td>关注点</td>
+<td>写多读少（SSTable有序）</td>
+<td>写少读多</td>
 </tr>
 </tbody></table>
-
-
-
-
-
 <h2 id="核心相似点"><a href="#核心相似点" class="headerlink" title="核心相似点"></a>核心相似点</h2><ol>
 <li>追加写入</li>
 </ol>
 <ul>
-<li><p>两者都是先将数据写入到内存中，然后刷盘不可变的文件中</p>
-</li>
-<li><p>通过顺序写入减少随机IO</p>
-</li>
+<li>两者都是先将数据写入到内存中，然后刷盘不可变的文件中</li>
+<li>通过顺序写入减少随机IO</li>
 </ul>
 <ol>
 <li>分层合并</li>
 </ol>
 <ul>
-<li><p>LSM树通过后台合并，将多个SSTable合并为更大更有序的SSTable，更新文件，删除冗余数据（重复key）</p>
-</li>
-<li><p>Lucene通过后台合并，将多个小segment合并为一个大Segment，优化查询性能，并回收空间</p>
-</li>
+<li>LSM树通过后台合并，将多个SSTable合并为更大更有序的SSTable，更新文件，删除冗余数据（重复key）</li>
+<li>Lucene通过后台合并，将多个小segment合并为一个大Segment，优化查询性能，并回收空间</li>
 </ul>
 <ol>
 <li>不可变性</li>
 </ol>
 <ul>
-<li><p>SSTable和Segment写入磁盘后无法更改，删除/更新操作通过追加 + 合并进行实现</p>
-</li>
-<li><p>简化并发控制，避免锁竞争</p>
-</li>
+<li>SSTable和Segment写入磁盘后无法更改，删除/更新操作通过追加 + 合并进行实现</li>
+<li>简化并发控制，避免锁竞争</li>
 </ul>
 <h2 id="关键差异"><a href="#关键差异" class="headerlink" title="关键差异"></a>关键差异</h2><ol>
-<li><p>设计目标</p>
-</li>
-<li><p>数据结构</p>
-</li>
-<li><p>合并策略</p>
-</li>
-<li><p>删除处理</p>
-</li>
+<li>设计目标</li>
+<li>数据结构</li>
+<li>合并策略</li>
+<li>删除处理</li>
 </ol>
 <h2 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h2><h1 id="从集群来看ES"><a href="#从集群来看ES" class="headerlink" title="从集群来看ES"></a>从集群来看ES</h1><h2 id="集群"><a href="#集群" class="headerlink" title="集群"></a>集群</h2><p>Cluster= 一群Node + 一个Master Node（协调）+ 数据分散存储</p>
 <h2 id="结点"><a href="#结点" class="headerlink" title="结点"></a>结点</h2><ul>
-<li><p>Mater Node：复杂管理Cluster状态（建索引、删除、分片分片等）</p>
-</li>
-<li><p>Data Node： 负责存储数据、处理读写请求</p>
-</li>
-<li><p>Coordinating Node： 负责接收请求、拆分请求、分发到各个结点，最后聚合结果</p>
-</li>
-<li><p>Ingest Node： 做预处理</p>
-</li>
+<li>Mater Node：复杂管理Cluster状态（建索引、删除、分片分片等）</li>
+<li>Data Node： 负责存储数据、处理读写请求</li>
+<li>Coordinating Node： 负责接收请求、拆分请求、分发到各个结点，最后聚合结果</li>
+<li>Ingest Node： 做预处理</li>
 </ul>
+<blockquote>
 <p>一个结点可以有多个身份</p>
+</blockquote>
 <h2 id="索引-1"><a href="#索引-1" class="headerlink" title="索引"></a>索引</h2><p>Index相当于数据库中的表，逻辑上的数据集合</p>
 <ul>
-<li><p>每个Index物理上会被分成多个 Shard（分片，存储到不同结点上</p>
-</li>
-<li><p>索引创建时就需要指定主分片数+副本分片数</p>
-</li>
+<li>每个Index物理上会被分成多个 Shard（分片，存储到不同结点上</li>
+<li>索引创建时就需要指定主分片数+副本分片数</li>
 </ul>
 <h2 id="分片"><a href="#分片" class="headerlink" title="分片"></a>分片</h2><ul>
-<li><p>主分片（Primary Shard）：真正存储数据的分片。</p>
-</li>
-<li><p>副本分片（Replica Shard）：主分片的拷贝，用于容灾、高可用，同时也能分担查询负载。</p>
-</li>
-<li><p>每个分片其实内部就是一个 Lucene 引擎实例（独立维护倒排索引、Segment、Document等）。</p>
-</li>
+<li><strong>主分片（Primary Shard）</strong>：真正存储数据的分片。</li>
+<li><strong>副本分片（Replica Shard）</strong>：主分片的拷贝，用于容灾、高可用，同时也能分担查询负载。</li>
+<li>每个分片其实内部就是一个 <strong>Lucene 引擎实例</strong>（独立维护倒排索引、Segment、Document等）。</li>
 </ul>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Node</td>
+<td>运行中的 Elasticsearch 实例，托管若干个 Shard</td>
+</tr>
+<tr>
+<td>Shard</td>
+<td>由 Node 托管，实际保存数据和索引（底层用 Lucene 实现）</td>
+</tr>
+<tr>
+<td>一个 Node</td>
+<td>可以承载 多个 Shard（包括主分片和副本分片）</td>
+</tr>
+<tr>
+<td>一个 Shard</td>
+<td>只能存在于 一个 Node 上（同一个 Shard 不会横跨多个 Node）</td>
+</tr>
+</tbody></table>
 <h1 id="🔥-举个例子"><a href="#🔥-举个例子" class="headerlink" title="🔥 举个例子"></a>🔥 举个例子</h1><p>假设：</p>
 <ul>
-<li><p>我创建了一个 products 索引</p>
-</li>
-<li><p>设置为 3个主分片，每个主分片 1个副本</p>
-</li>
+<li>我创建了一个 <code>products</code> 索引</li>
+<li>设置为 <strong>3个主分片</strong>，每个主分片 <strong>1个副本</strong></li>
 </ul>
 <p>那就是一共：</p>
 <ul>
-<li><p>3 个 Primary Shard（主）</p>
-</li>
-<li><p>3 个 Replica Shard（副本）</p>
-</li>
-<li><p>总计 6 个 Shard</p>
-</li>
+<li>3 个 Primary Shard（主）</li>
+<li>3 个 Replica Shard（副本）</li>
+<li>总计 6 个 Shard</li>
 </ul>
 <p>如果你的集群有 3 个 Node，那么可能的分配：</p>
-<p>⚡ 注意：Elasticsearch 调度器会尽量让 主副本和副副本不在同一台机器上，以提高容错性！</p>
+<table>
+<thead>
+<tr>
+<th>Node</th>
+<th>托管的分片</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Node 1</td>
+<td>Primary 1, Replica 2</td>
+</tr>
+<tr>
+<td>Node 2</td>
+<td>Primary 2, Replica 3</td>
+</tr>
+<tr>
+<td>Node 3</td>
+<td>Primary 3, Replica 1</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>⚡ 注意：Elasticsearch 调度器会尽量让 <strong>主副本和副副本不在同一台机器上</strong>，以提高容错性！</p>
+</blockquote>
 <h1 id="番外"><a href="#番外" class="headerlink" title="番外"></a>番外</h1><p><a target="_blank" rel="noopener" href="https://tech.meituan.com/2022/11/17/elasicsearch-optimization-practice-based-on-run-length-encoding.html">https://tech.meituan.com/2022/11/17/elasicsearch-optimization-practice-based-on-run-length-encoding.html</a></p>
-<h3 id="用-geo-shape-类型（而不是-geo-point）"><a href="#用-geo-shape-类型（而不是-geo-point）" class="headerlink" title=". 用 geo_shape 类型（而不是 geo_point）"></a>. 用 geo_shape 类型（而不是 geo_point）</h3><ul>
-<li><p>geo_point：经纬度，单个点（只能做简单的附近搜索）</p>
-</li>
-<li><p>geo_shape：支持复杂的几何图形，比如：Polygon（多边形）、MultiPolygon（多个多边形）、Line、Envelope 等等。</p>
-</li>
+<h3 id="用-geo-shape-类型（而不是-geo-point）"><a href="#用-geo-shape-类型（而不是-geo-point）" class="headerlink" title=". 用 geo_shape 类型（而不是 geo_point）"></a>. 用 <code>geo_shape</code> 类型（而不是 <code>geo_point</code>）</h3><ul>
+<li><code>geo_point</code>：经纬度，单个点（只能做简单的附近搜索）</li>
+<li><code>geo_shape</code>：支持复杂的几何图形，比如：Polygon（多边形）、MultiPolygon（多个多边形）、Line、Envelope 等等。</li>
 </ul>
-<p>示例：建索引 Mapping：</p>
+<p><strong>示例：建索引 Mapping：</strong></p>
 <figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">PUT /stores</span><br><span class="line">{</span><br><span class="line">  <span class="string">"mappings"</span>: {</span><br><span class="line">    <span class="string">"properties"</span>: {</span><br><span class="line">      <span class="string">"name"</span>: { <span class="string">"type"</span>: <span class="string">"text"</span> },</span><br><span class="line">      <span class="string">"delivery_area"</span>: { <span class="string">"type"</span>: <span class="string">"geo_shape"</span> }  // 这里是 geo_shape</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
-<hr>
 <ol>
 <li>存储门店配送范围（多边形Polygon）</li>
 </ol>
@@ -1073,24 +852,22 @@ FST词典、跳表、缓存
 <figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">POST /stores/_doc</span><br><span class="line">{</span><br><span class="line">  <span class="string">"name"</span>: <span class="string">"王记烧烤"</span>,</span><br><span class="line">  <span class="string">"delivery_area"</span>: {</span><br><span class="line">    <span class="string">"type"</span>: <span class="string">"polygon"</span>,</span><br><span class="line">    <span class="string">"coordinates"</span>: [</span><br><span class="line">      [</span><br><span class="line">        [121.4737, 31.2304],</span><br><span class="line">        [121.4750, 31.2300],</span><br><span class="line">        [121.4760, 31.2310],</span><br><span class="line">        [121.4740, 31.2320],</span><br><span class="line">        [121.4737, 31.2304]  // 注意闭合：起点和终点一样</span><br><span class="line">      ]</span><br><span class="line">    ]</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <ul>
-<li><p>这里的 coordinates 是经纬度数组（WGS84坐标系）。</p>
-</li>
-<li><p>每个 Polygon 一定要首尾闭合。</p>
-</li>
+<li>这里的 <code>coordinates</code> 是经纬度数组（WGS84坐标系）。</li>
+<li>每个 Polygon 一定要首尾闭合。</li>
 </ul>
-<hr>
 <ol>
 <li>检索用户位置是否在配送区内</li>
 </ol>
-<p>使用 geo_shape 的 intersects 查询：</p>
+<p><strong>使用</strong> <strong><code>geo_shape</code></strong> <strong>的</strong> <strong><code>intersects</code></strong> <strong>查询</strong>：</p>
 <figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">GET /stores/_search</span><br><span class="line">{</span><br><span class="line">  <span class="string">"query"</span>: {</span><br><span class="line">    <span class="string">"bool"</span>: {</span><br><span class="line">      <span class="string">"filter"</span>: {</span><br><span class="line">        <span class="string">"geo_shape"</span>: {</span><br><span class="line">          <span class="string">"delivery_area"</span>: {</span><br><span class="line">            <span class="string">"relation"</span>: <span class="string">"intersects"</span>,  // 交集</span><br><span class="line">            <span class="string">"shape"</span>: {</span><br><span class="line">              <span class="string">"type"</span>: <span class="string">"point"</span>,</span><br><span class="line">              <span class="string">"coordinates"</span>: [121.4745, 31.2315]</span><br><span class="line">            }</span><br><span class="line">          }</span><br><span class="line">        }</span><br><span class="line">      }</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <ul>
-<li><p>意思是：找到所有 配送区域覆盖这个点的门店。</p>
-</li>
-<li><p>当然也可以用 within、contains 等其他空间关系。</p>
-</li>
+<li>意思是：找到所有 <strong>配送区域覆盖这个点的门店</strong>。</li>
+<li>当然也可以用 <code>within</code>、<code>contains</code> 等其他空间关系。</li>
 </ul>
+<h1 id="HNSW"><a href="#HNSW" class="headerlink" title="HNSW"></a>HNSW</h1><blockquote>
+<p>todo 这一节更多是会写到RAG&amp;MCP应用文章中，后续放一个跳转链接</p>
+</blockquote>
 <h1 id="场景设计"><a href="#场景设计" class="headerlink" title="场景设计"></a>场景设计</h1><h1 id="外卖系统怎么用ES聚合附近商家的评分？"><a href="#外卖系统怎么用ES聚合附近商家的评分？" class="headerlink" title="外卖系统怎么用ES聚合附近商家的评分？"></a>外卖系统怎么用ES聚合附近商家的评分？</h1><p>比如，用户打开饿了么，美团，想找附近评价高的商家。</p>
 <ol>
 <li>商家文档结构（在ES里）</li>
@@ -1101,18 +878,15 @@ FST词典、跳表、缓存
 <li>用户搜索流程</li>
 </ol>
 <ul>
-<li><p>根据用户位置（比如上海市中心）用 geo_distance 查询，查出 3km 内的商家。</p>
-</li>
-<li><p>然后用 聚合（Aggregation）：</p>
-<ul>
-<li>按评分（rating）做 平均值、排序，挑评分最高的商家。</li>
-<li>按销量（monthly_sales）做 销量榜单。</li>
+<li>根据用户位置（比如上海市中心）用 geo_distance 查询，查出 3km 内的商家。</li>
+<li>然后用 <strong>聚合（Aggregation）</strong>：<ul>
+<li>按评分（<code>rating</code>）做 <strong>平均值</strong>、<strong>排序</strong>，挑评分最高的商家。</li>
+<li>按销量（<code>monthly_sales</code>）做 <strong>销量榜单</strong>。</li>
 </ul>
 </li>
 </ul>
 <h3 id="具体的-ES-查询"><a href="#具体的-ES-查询" class="headerlink" title="具体的 ES 查询"></a>具体的 ES 查询</h3><figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">{</span><br><span class="line">  <span class="string">"query"</span>: {</span><br><span class="line">    <span class="string">"bool"</span>: {</span><br><span class="line">      <span class="string">"filter"</span>: {</span><br><span class="line">        <span class="string">"geo_distance"</span>: {</span><br><span class="line">          <span class="string">"distance"</span>: <span class="string">"3km"</span>,</span><br><span class="line">          <span class="string">"location"</span>: { <span class="string">"lat"</span>: 31.2304, <span class="string">"lon"</span>: 121.4737 }</span><br><span class="line">        }</span><br><span class="line">      }</span><br><span class="line">    }</span><br><span class="line">  },</span><br><span class="line">  <span class="string">"sort"</span>: [</span><br><span class="line">    { <span class="string">"rating"</span>: { <span class="string">"order"</span>: <span class="string">"desc"</span> } },</span><br><span class="line">    { <span class="string">"monthly_sales"</span>: { <span class="string">"order"</span>: <span class="string">"desc"</span> } }</span><br><span class="line">  ]</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
-<hr>
 <h1 id="🛒-电商系统怎么用ES算实时销售榜？"><a href="#🛒-电商系统怎么用ES算实时销售榜？" class="headerlink" title="🛒 电商系统怎么用ES算实时销售榜？"></a>🛒 电商系统怎么用ES算实时销售榜？</h1><p>比如淘宝、京东首页上，「实时热销榜」就是这么搞的！</p>
 <ol>
 <li>商品文档结构（在ES里）</li>
@@ -1123,30 +897,23 @@ FST词典、跳表、缓存
 <li>查询实时热销榜流程</li>
 </ol>
 <ul>
-<li><p>用字段 last_30min_sales 按照销量做 降序排序。</p>
-</li>
-<li><p>只取 Top 100 热销商品。</p>
-</li>
-<li><p>如果按品类分类（比如”手机”、”家电”），再做个 terms aggregation 按 category 分组！</p>
-</li>
+<li>用字段 <code>last_30min_sales</code> 按照销量做 <strong>降序排序</strong>。</li>
+<li>只取 Top 100 热销商品。</li>
+<li>如果按品类分类（比如”手机”、”家电”），再做个 <strong>terms aggregation</strong> 按 category 分组！</li>
 </ul>
 <h3 id="具体的-ES-查询-1"><a href="#具体的-ES-查询-1" class="headerlink" title="具体的 ES 查询"></a>具体的 ES 查询</h3><figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">{</span><br><span class="line">  <span class="string">"query"</span>: {</span><br><span class="line">    <span class="string">"match_all"</span>: {}</span><br><span class="line">  },</span><br><span class="line">  <span class="string">"sort"</span>: [</span><br><span class="line">    { <span class="string">"last_30min_sales"</span>: { <span class="string">"order"</span>: <span class="string">"desc"</span> } }</span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"size"</span>: 100</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
-<p>如果要按分类出榜单，再加一个聚合：</p>
+<p>如果要<strong>按分类出榜单</strong>，再加一个聚合：</p>
 <figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line"><span class="string">"aggs"</span>: {</span><br><span class="line">  <span class="string">"by_category"</span>: {</span><br><span class="line">    <span class="string">"terms"</span>: {</span><br><span class="line">      <span class="string">"field"</span>: <span class="string">"category.keyword"</span>,</span><br><span class="line">      <span class="string">"size"</span>: 10</span><br><span class="line">    },</span><br><span class="line">    <span class="string">"aggs"</span>: {</span><br><span class="line">      <span class="string">"top_sales"</span>: {</span><br><span class="line">        <span class="string">"top_hits"</span>: {</span><br><span class="line">          <span class="string">"sort"</span>: [</span><br><span class="line">            { <span class="string">"last_30min_sales"</span>: { <span class="string">"order"</span>: <span class="string">"desc"</span> } }</span><br><span class="line">          ],</span><br><span class="line">          <span class="string">"size"</span>: 5</span><br><span class="line">        }</span><br><span class="line">      }</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
-<p>👉 效果：比如“手机”品类下热销前5名，“家电”下热销前5名。</p>
+<p>👉 <strong>效果</strong>：比如“手机”品类下热销前5名，“家电”下热销前5名。</p>
 <h2 id="对比Redis的Zset有什么优势？"><a href="#对比Redis的Zset有什么优势？" class="headerlink" title="对比Redis的Zset有什么优势？"></a>对比Redis的Zset有什么优势？</h2><ol>
-<li><p>支持复杂筛选：比如「上海地区，手机品类，价格5000以内，近一周销量榜」。</p>
-</li>
-<li><p>支持复杂聚合分析：比如「按品牌分组统计销量」「统计每天销量走势」。</p>
-</li>
-<li><p>支持冷热数据分层：老数据转冷，不影响新数据查询。</p>
-</li>
-<li><p>适合超大规模数据：TB级，PB级也能撑住。</p>
-</li>
+<li><strong>支持复杂筛选</strong>：比如「上海地区，手机品类，价格5000以内，近一周销量榜」。</li>
+<li><strong>支持复杂聚合分析</strong>：比如「按品牌分组统计销量」「统计每天销量走势」。</li>
+<li><strong>支持冷热数据分层</strong>：老数据转冷，不影响新数据查询。</li>
+<li><strong>适合超大规模数据</strong>：TB级，PB级也能撑住。</li>
 </ol>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">末影</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2025/03/12/ElasticSearch/">http://example.com/2025/03/12/ElasticSearch/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">一只末影酱的小屋</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/">中间件</a><a class="post-meta__tags" href="/tags/ELK/">ELK</a></div><div class="post_share"><div class="social-share" data-image="https://www.helloimg.com/i/2024/11/19/673c86614db4d.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/01/25/%E7%AE%97%E6%B3%95/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/" title="代码随想录：回溯算法"><img class="cover" src="https://www.helloimg.com/i/2024/12/28/676fc4dcc5bfc.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">代码随想录：回溯算法</div></div></a></div><div class="next-post pull-right"><a href="/2025/04/27/%E8%BD%AE%E5%AD%90_%E7%8E%A9%E5%85%B7/README/" title="Go 实现 Raft一致性算法"><img class="cover" src="https://www.helloimg.com/i/2025/05/01/6812512ba3c13.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Go 实现 Raft一致性算法</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/11/21/%E4%B8%AD%E9%97%B4%E4%BB%B6/RabbitMQ/" title="RabbitMQ learn"><img class="cover" src="https://www.helloimg.com/i/2024/11/19/673c86614db4d.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-21</div><div class="title">RabbitMQ learn</div></div></a></div><div><a href="/2025/06/09/%E4%B8%AD%E9%97%B4%E4%BB%B6/RocketMQ/" title="RocketMQ使用/源码享用"><img class="cover" src="https://th.bing.com/th/id/OSK.4d2aa9904b0d04fe5b75bbae49d4d335?w=102&amp;h=102&amp;c=7&amp;o=6&amp;pid=SANGAM" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-09</div><div class="title">RocketMQ使用/源码享用</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info__name">末影</div><div class="author-info__description">只因不是出自真心，话语各位动听</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/moying688"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="https://blog.csdn.net/m0_74345527" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="mailto:2869289913@qq.com" target="_blank" title="Email"><i class="fas fa-envelope-open-text"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ES%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">1.</span> <span class="toc-text">ES使用场景</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFElasticSearch%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">什么是ElasticSearch？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%93%E4%B8%9A%E6%9C%AF%E8%AF%AD%EF%BC%88import%EF%BC%89"><span class="toc-number">2.1.</span> <span class="toc-text">专业术语（import）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95"><span class="toc-number">2.2.</span> <span class="toc-text">索引</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88ES%E6%97%A0%E6%B3%95%E9%9A%8F%E4%BE%BF%E4%BF%AE%E6%94%B9%E5%AD%97%E6%AE%B5%EF%BC%9F"><span class="toc-number">2.2.1.</span> <span class="toc-text">为什么ES无法随便修改字段？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reindex"><span class="toc-number">2.2.2.</span> <span class="toc-text">Reindex</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%95%E5%B1%82%E7%BB%93%E6%9E%84"><span class="toc-number">2.3.</span> <span class="toc-text">底层结构</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CRUD%E6%93%8D%E4%BD%9C%E8%BF%87%E7%A8%8B"><span class="toc-number">3.</span> <span class="toc-text">CRUD操作过程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Elasticsearch%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E7%9A%84%E7%B4%A2%E5%BC%95%E6%9E%84%E5%BB%BA%E8%BF%87%E7%A8%8B%EF%BC%9F"><span class="toc-number">3.1.</span> <span class="toc-text">Elasticsearch搜索引擎的索引构建过程？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AA%E5%8D%95%E8%AF%8D%E5%8E%BB%E6%9F%A5%E8%AF%A2%E4%BC%9A%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">3.1.1.</span> <span class="toc-text">输入一个单词去查询会发生什么？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87%E6%96%87%E6%A1%A3id%E6%9F%A5%E8%AF%A2%E5%88%B0%E5%AF%B9%E5%BA%94%E7%B4%A2%E5%BC%95%E4%B8%8B%E7%9A%84%E6%96%87%E6%A1%A3%EF%BC%9F"><span class="toc-number">3.2.</span> <span class="toc-text">如何通过文档id查询到对应索引下的文档？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E8%8C%83%E5%9B%B4%E6%9F%A5%E8%AF%A2%EF%BC%9F"><span class="toc-number">3.3.</span> <span class="toc-text">如何实现范围查询？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%99%E5%85%A5%E4%B8%80%E4%B8%AA%E6%96%B0%E6%96%87%E6%A1%A3%E8%BF%87%E7%A8%8B%EF%BC%9F"><span class="toc-number">3.3.1.</span> <span class="toc-text">写入一个新文档过程？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E4%B8%80%E4%B8%AA%E6%96%87%E6%A1%A3%E8%BF%87%E7%A8%8B"><span class="toc-number">3.3.2.</span> <span class="toc-text">删除一个文档过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E6%93%8D%E4%BD%9C"><span class="toc-number">3.3.3.</span> <span class="toc-text">更新操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E8%BF%9B%E8%A1%8CSegment%E5%90%88%E5%B9%B6"><span class="toc-number">3.3.4.</span> <span class="toc-text">什么时候进行Segment合并</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Lucene"><span class="toc-number">4.</span> <span class="toc-text">Lucene</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%80%92%E6%8E%92%E7%B4%A2%E5%BC%95"><span class="toc-number">4.1.</span> <span class="toc-text">倒排索引</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FST"><span class="toc-number">4.1.1.</span> <span class="toc-text">FST</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Posting-List"><span class="toc-number">4.1.2.</span> <span class="toc-text">Posting List</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Segment%EF%BC%88Import%EF%BC%81%EF%BC%89"><span class="toc-number">4.2.</span> <span class="toc-text">Segment（Import！）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BKD%E6%A0%91"><span class="toc-number">4.3.</span> <span class="toc-text">BKD树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LSM%E6%A0%91"><span class="toc-number">4.4.</span> <span class="toc-text">LSM树</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Memtable"><span class="toc-number">4.4.1.</span> <span class="toc-text">Memtable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Immutable-memtable"><span class="toc-number">4.4.2.</span> <span class="toc-text">Immutable memtable</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">4.5.</span> <span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SSTable"><span class="toc-number">4.5.1.</span> <span class="toc-text">SSTable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Compact%E7%AD%96%E7%95%A5"><span class="toc-number">4.5.2.</span> <span class="toc-text">Compact策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A2%9E%E5%88%A0%E6%9F%A5%E6%94%B9%E6%93%8D%E4%BD%9C"><span class="toc-number">4.5.3.</span> <span class="toc-text">增删查改操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%89%E5%A2%93%E7%A2%91%E6%A0%87%E8%AE%B0%E7%9A%84%E6%95%B0%E6%8D%AE%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E8%A2%AB%E6%B8%85%E9%99%A4%E5%91%A2%EF%BC%9F%E4%BC%9A%E4%B8%8D%E4%BC%9A%E6%B0%B8%E8%BF%9C%E6%97%A0%E6%B3%95%E6%B8%85%E9%99%A4%EF%BC%9F"><span class="toc-number">4.5.4.</span> <span class="toc-text">有墓碑标记的数据什么时候被清除呢？会不会永远无法清除？</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ElasticSearch%EF%BC%88Lucene%EF%BC%89-%E4%B8%8ELSM%E7%9A%84%E5%BC%82%E5%90%8C"><span class="toc-number">5.</span> <span class="toc-text">ElasticSearch（Lucene） 与LSM的异同</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E7%9B%B8%E4%BC%BC%E7%82%B9"><span class="toc-number">5.1.</span> <span class="toc-text">核心相似点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E5%B7%AE%E5%BC%82"><span class="toc-number">5.2.</span> <span class="toc-text">关键差异</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3"><span class="toc-number">5.3.</span> <span class="toc-text">核心思想</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%9D%A5%E7%9C%8BES"><span class="toc-number">6.</span> <span class="toc-text">从集群来看ES</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4"><span class="toc-number">6.1.</span> <span class="toc-text">集群</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E7%82%B9"><span class="toc-number">6.2.</span> <span class="toc-text">结点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95-1"><span class="toc-number">6.3.</span> <span class="toc-text">索引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E7%89%87"><span class="toc-number">6.4.</span> <span class="toc-text">分片</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%F0%9F%94%A5-%E4%B8%BE%E4%B8%AA%E4%BE%8B%E5%AD%90"><span class="toc-number">7.</span> <span class="toc-text">🔥 举个例子</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%95%AA%E5%A4%96"><span class="toc-number">8.</span> <span class="toc-text">番外</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8-geo-shape-%E7%B1%BB%E5%9E%8B%EF%BC%88%E8%80%8C%E4%B8%8D%E6%98%AF-geo-point%EF%BC%89"><span class="toc-number">8.0.1.</span> <span class="toc-text">. 用 geo_shape 类型（而不是 geo_point）</span></a></li></ol></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E8%AE%BE%E8%AE%A1"><span class="toc-number">9.</span> <span class="toc-text">场景设计</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%96%E5%8D%96%E7%B3%BB%E7%BB%9F%E6%80%8E%E4%B9%88%E7%94%A8ES%E8%81%9A%E5%90%88%E9%99%84%E8%BF%91%E5%95%86%E5%AE%B6%E7%9A%84%E8%AF%84%E5%88%86%EF%BC%9F"><span class="toc-number">10.</span> <span class="toc-text">外卖系统怎么用ES聚合附近商家的评分？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E7%9A%84-ES-%E6%9F%A5%E8%AF%A2"><span class="toc-number">10.0.1.</span> <span class="toc-text">具体的 ES 查询</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%F0%9F%9B%92-%E7%94%B5%E5%95%86%E7%B3%BB%E7%BB%9F%E6%80%8E%E4%B9%88%E7%94%A8ES%E7%AE%97%E5%AE%9E%E6%97%B6%E9%94%80%E5%94%AE%E6%A6%9C%EF%BC%9F"><span class="toc-number">11.</span> <span class="toc-text">🛒 电商系统怎么用ES算实时销售榜？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E7%9A%84-ES-%E6%9F%A5%E8%AF%A2-1"><span class="toc-number">11.0.1.</span> <span class="toc-text">具体的 ES 查询</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E6%AF%94Redis%E7%9A%84Zset%E6%9C%89%E4%BB%80%E4%B9%88%E4%BC%98%E5%8A%BF%EF%BC%9F"><span class="toc-number">11.1.</span> <span class="toc-text">对比Redis的Zset有什么优势？</span></a></li></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/06/09/%E4%B8%AD%E9%97%B4%E4%BB%B6/RocketMQ/" title="RocketMQ使用/源码享用"><img src="https://th.bing.com/th/id/OSK.4d2aa9904b0d04fe5b75bbae49d4d335?w=102&amp;h=102&amp;c=7&amp;o=6&amp;pid=SANGAM" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="RocketMQ使用/源码享用"></a><div class="content"><a class="title" href="/2025/06/09/%E4%B8%AD%E9%97%B4%E4%BB%B6/RocketMQ/" title="RocketMQ使用/源码享用">RocketMQ使用/源码享用</a><time datetime="2025-06-09T12:16:29.000Z" title="发表于 2025-06-09 20:16:29">2025-06-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/06/07/AI/MCP/" title="MCP、RAG初体验以及相关思考"><img src="https://th.bing.com/th/id/OIP.-442vLgw-9MU4lnbiLl2RwHaHa?r=0&amp;o=7rm=3&amp;rs=1&amp;pid=ImgDetMain" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MCP、RAG初体验以及相关思考"></a><div class="content"><a class="title" href="/2025/06/07/AI/MCP/" title="MCP、RAG初体验以及相关思考">MCP、RAG初体验以及相关思考</a><time datetime="2025-06-07T05:24:11.000Z" title="发表于 2025-06-07 13:24:11">2025-06-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/05/01/%E8%BD%AE%E5%AD%90_%E7%8E%A9%E5%85%B7/%E6%89%8B%E5%86%99%E5%8A%A8%E6%80%81%E7%BA%BF%E7%A8%8B%E6%B1%A0/" title="手写动态线程池"><img src="https://www.helloimg.com/i/2024/12/28/676fc4edccd82.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="手写动态线程池"></a><div class="content"><a class="title" href="/2025/05/01/%E8%BD%AE%E5%AD%90_%E7%8E%A9%E5%85%B7/%E6%89%8B%E5%86%99%E5%8A%A8%E6%80%81%E7%BA%BF%E7%A8%8B%E6%B1%A0/" title="手写动态线程池">手写动态线程池</a><time datetime="2025-04-30T16:01:48.000Z" title="发表于 2025-05-01 00:01:48">2025-05-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/04/27/%E8%BD%AE%E5%AD%90_%E7%8E%A9%E5%85%B7/README/" title="Go 实现 Raft一致性算法"><img src="https://www.helloimg.com/i/2025/05/01/6812512ba3c13.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Go 实现 Raft一致性算法"></a><div class="content"><a class="title" href="/2025/04/27/%E8%BD%AE%E5%AD%90_%E7%8E%A9%E5%85%B7/README/" title="Go 实现 Raft一致性算法">Go 实现 Raft一致性算法</a><time datetime="2025-04-26T16:23:16.212Z" title="发表于 2025-04-27 00:23:16">2025-04-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/03/12/ElasticSearch/" title="ElasticSearch 进阶"><img src="https://www.helloimg.com/i/2024/11/19/673c86614db4d.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ElasticSearch 进阶"></a><div class="content"><a class="title" href="/2025/03/12/ElasticSearch/" title="ElasticSearch 进阶">ElasticSearch 进阶</a><time datetime="2025-03-11T16:00:00.000Z" title="发表于 2025-03-12 00:00:00">2025-03-12</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">©2020 - 2025 By 末影</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/fireworks.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zindex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">末影</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2025/03/12/ElasticSearch/">http://example.com/2025/03/12/ElasticSearch/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">一只末影酱的小屋</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/">中间件</a><a class="post-meta__tags" href="/tags/ELK/">ELK</a></div><div class="post_share"><div class="social-share" data-image="https://www.helloimg.com/i/2025/06/10/6847ffee96241.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/01/25/%E7%AE%97%E6%B3%95/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/" title="代码随想录：回溯算法"><img class="cover" src="https://www.helloimg.com/i/2024/11/19/673c865dc3708.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">代码随想录：回溯算法</div></div></a></div><div class="next-post pull-right"><a href="/2025/04/27/%E8%BD%AE%E5%AD%90_%E7%8E%A9%E5%85%B7/README/" title="Go 实现 Raft一致性算法"><img class="cover" src="https://www.helloimg.com/i/2025/05/01/6812512ba3c13.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Go 实现 Raft一致性算法</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/11/21/%E4%B8%AD%E9%97%B4%E4%BB%B6/RabbitMQ/" title="RabbitMQ learn"><img class="cover" src="https://www.helloimg.com/i/2024/11/19/673c865f77e66.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-21</div><div class="title">RabbitMQ learn</div></div></a></div><div><a href="/2025/06/09/%E4%B8%AD%E9%97%B4%E4%BB%B6/RocketMQ/" title="RocketMQ使用/源码享用"><img class="cover" src="https://th.bing.com/th/id/OSK.4d2aa9904b0d04fe5b75bbae49d4d335?w=102&amp;h=102&amp;c=7&amp;o=6&amp;pid=SANGAM" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-09</div><div class="title">RocketMQ使用/源码享用</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info__name">末影</div><div class="author-info__description">只因不是出自真心，话语各位动听</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/moying688"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="https://blog.csdn.net/m0_74345527" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="mailto:2869289913@qq.com" target="_blank" title="Email"><i class="fas fa-envelope-open-text"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ElasticSearch"><span class="toc-number">1.</span> <span class="toc-text">ElasticSearch</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ES%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">2.</span> <span class="toc-text">ES使用场景</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFElasticSearch%EF%BC%9F"><span class="toc-number">3.</span> <span class="toc-text">什么是ElasticSearch？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%93%E4%B8%9A%E6%9C%AF%E8%AF%AD%EF%BC%88import%EF%BC%89"><span class="toc-number">3.1.</span> <span class="toc-text">专业术语（import）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95"><span class="toc-number">3.2.</span> <span class="toc-text">索引</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88ES%E6%97%A0%E6%B3%95%E9%9A%8F%E4%BE%BF%E4%BF%AE%E6%94%B9%E5%AD%97%E6%AE%B5%EF%BC%9F"><span class="toc-number">3.2.1.</span> <span class="toc-text">为什么ES无法随便修改字段？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ES%E5%BA%95%E5%B1%82%E6%97%B6%E4%B8%8D%E5%8F%AF%E5%8F%98%E6%96%87%E4%BB%B6%EF%BC%88Segment%EF%BC%89-%E7%B1%BB%E4%BC%BC%E4%BA%8ELSM%E6%A0%91%E7%9A%84SSTable-%E5%8F%AA%E5%86%99%E4%B8%8D%E6%94%B9-%E6%97%A7%E7%9A%84%E6%95%B0%E6%8D%AE%E6%A0%87%E8%AE%B0%E4%B8%BA%E6%97%A0%E6%95%88%EF%BC%8C%E5%90%88%E5%B9%B6%E6%97%B6%E6%B8%85%E9%99%A4"><span class="toc-number">3.3.</span> <span class="toc-text">ES底层时不可变文件（Segment）- 类似于LSM树的SSTable- 只写不改- 旧的数据标记为无效，合并时清除</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Reindex"><span class="toc-number">3.3.1.</span> <span class="toc-text">Reindex</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%95%E5%B1%82%E7%BB%93%E6%9E%84"><span class="toc-number">3.4.</span> <span class="toc-text">底层结构</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CRUD%E6%93%8D%E4%BD%9C%E8%BF%87%E7%A8%8B"><span class="toc-number">4.</span> <span class="toc-text">CRUD操作过程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Elasticsearch%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E7%9A%84%E7%B4%A2%E5%BC%95%E6%9E%84%E5%BB%BA%E8%BF%87%E7%A8%8B%EF%BC%9F"><span class="toc-number">4.1.</span> <span class="toc-text">Elasticsearch搜索引擎的索引构建过程？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AA%E5%8D%95%E8%AF%8D%E5%8E%BB%E6%9F%A5%E8%AF%A2%E4%BC%9A%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">4.1.1.</span> <span class="toc-text">输入一个单词去查询会发生什么？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87%E6%96%87%E6%A1%A3id%E6%9F%A5%E8%AF%A2%E5%88%B0%E5%AF%B9%E5%BA%94%E7%B4%A2%E5%BC%95%E4%B8%8B%E7%9A%84%E6%96%87%E6%A1%A3%EF%BC%9F-id"><span class="toc-number">4.2.</span> <span class="toc-text">如何通过文档id查询到对应索引下的文档？(_id)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E8%8C%83%E5%9B%B4%E6%9F%A5%E8%AF%A2%EF%BC%9F"><span class="toc-number">4.3.</span> <span class="toc-text">如何实现范围查询？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%99%E5%85%A5%E4%B8%80%E4%B8%AA%E6%96%B0%E6%96%87%E6%A1%A3%E8%BF%87%E7%A8%8B%EF%BC%9F"><span class="toc-number">4.3.1.</span> <span class="toc-text">写入一个新文档过程？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E4%B8%80%E4%B8%AA%E6%96%87%E6%A1%A3%E8%BF%87%E7%A8%8B"><span class="toc-number">4.3.2.</span> <span class="toc-text">删除一个文档过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E6%93%8D%E4%BD%9C"><span class="toc-number">4.3.3.</span> <span class="toc-text">更新操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E8%BF%9B%E8%A1%8CSegment%E5%90%88%E5%B9%B6"><span class="toc-number">4.3.4.</span> <span class="toc-text">什么时候进行Segment合并</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Lucene"><span class="toc-number">5.</span> <span class="toc-text">Lucene</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%80%92%E6%8E%92%E7%B4%A2%E5%BC%95"><span class="toc-number">5.1.</span> <span class="toc-text">倒排索引</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FST"><span class="toc-number">5.1.1.</span> <span class="toc-text">FST</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#FST%E7%9A%84%E7%BB%93%E6%9E%84%E5%92%8C%E7%BB%84%E7%BB%87%E6%96%B9%E5%BC%8F"><span class="toc-number">5.1.1.1.</span> <span class="toc-text">FST的结构和组织方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%90%9C%E7%B4%A2%E5%85%B3%E9%94%AE%E8%AF%8D%E6%97%B6%EF%BC%8C%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8FST%EF%BC%9F"><span class="toc-number">5.1.1.2.</span> <span class="toc-text">搜索关键词时，怎么使用FST？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E6%94%AF%E6%8C%81%E6%A8%A1%E7%B3%8A%E6%90%9C%E7%B4%A2%EF%BC%9F-%EF%BC%88%E8%BF%99%E9%87%8C%E4%B8%8D%E5%90%8C%E4%BA%8EMySQL%E7%9A%84%E6%A8%A1%E7%B3%8A%E6%90%9C%E7%B4%A2%EF%BC%89"><span class="toc-number">5.1.1.3.</span> <span class="toc-text">如何支持模糊搜索？ （这里不同于MySQL的模糊搜索）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FST%E5%92%8CTrie%E3%80%81Hash%E8%A1%A8%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E6%98%AFTrie%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%94%A8Hash"><span class="toc-number">5.1.1.4.</span> <span class="toc-text">FST和Trie、Hash表的区别，为什么不是Trie？为什么不用Hash</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FST%E6%9F%A5%E8%AF%A2%E8%BF%87%E7%A8%8B%EF%BC%8C%E5%A6%82%E4%BD%95%E5%BF%AB%E9%80%9F%E6%9F%A5%E8%AF%A2%EF%BC%9F%E5%A6%82%E4%BD%95%E6%89%BE%E5%88%B0%E4%B8%80%E4%B8%AA%E8%AF%8D%E7%9A%84posting-list%E8%B5%B7%E5%A7%8B%E4%BD%8D%E7%BD%AE"><span class="toc-number">5.1.1.5.</span> <span class="toc-text">FST查询过程，如何快速查询？如何找到一个词的posting list起始位置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A2%9E%E5%88%A0%E6%94%B9%E6%97%B6%EF%BC%8CFST%E5%8F%98%E5%8C%96"><span class="toc-number">5.1.1.6.</span> <span class="toc-text">增删改时，FST变化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#merge-FST%E4%BC%9A%E5%81%9A%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">5.1.1.7.</span> <span class="toc-text">merge FST会做什么？</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Posting-List"><span class="toc-number">5.1.2.</span> <span class="toc-text">Posting List</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Segment%EF%BC%88Import%EF%BC%81%EF%BC%89"><span class="toc-number">5.2.</span> <span class="toc-text">Segment（Import！）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BKD%E6%A0%91"><span class="toc-number">5.3.</span> <span class="toc-text">BKD树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LSM%E6%A0%91"><span class="toc-number">5.4.</span> <span class="toc-text">LSM树</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Memtable"><span class="toc-number">5.4.1.</span> <span class="toc-text">Memtable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Immutable-memtable"><span class="toc-number">5.4.2.</span> <span class="toc-text">Immutable memtable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SSTable"><span class="toc-number">5.4.3.</span> <span class="toc-text">SSTable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Compact%E7%AD%96%E7%95%A5"><span class="toc-number">5.4.4.</span> <span class="toc-text">Compact策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A2%9E%E5%88%A0%E6%9F%A5%E6%94%B9%E6%93%8D%E4%BD%9C"><span class="toc-number">5.4.5.</span> <span class="toc-text">增删查改操作</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E6%93%8D%E4%BD%9C"><span class="toc-number">5.4.5.0.1.</span> <span class="toc-text">插入操作</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E6%93%8D%E4%BD%9C"><span class="toc-number">5.4.5.0.2.</span> <span class="toc-text">删除操作</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E6%93%8D%E4%BD%9C"><span class="toc-number">5.4.5.0.3.</span> <span class="toc-text">查询操作</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E6%93%8D%E4%BD%9C-1"><span class="toc-number">5.4.5.0.4.</span> <span class="toc-text">更新操作</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%89%E5%A2%93%E7%A2%91%E6%A0%87%E8%AE%B0%E7%9A%84%E6%95%B0%E6%8D%AE%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E8%A2%AB%E6%B8%85%E9%99%A4%E5%91%A2%EF%BC%9F%E4%BC%9A%E4%B8%8D%E4%BC%9A%E6%B0%B8%E8%BF%9C%E6%97%A0%E6%B3%95%E6%B8%85%E9%99%A4%EF%BC%9F"><span class="toc-number">5.4.6.</span> <span class="toc-text">有墓碑标记的数据什么时候被清除呢？会不会永远无法清除？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E9%A9%AC%E4%B8%8A%E5%88%A0%E9%99%A4%EF%BC%9F"><span class="toc-number">5.4.6.1.</span> <span class="toc-text">为什么不能马上删除？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E5%88%A0%E9%99%A4%E4%B8%8D%E5%8F%8A%E6%97%B6%E7%9A%84%E5%8A%9E%E6%B3%95"><span class="toc-number">5.4.6.2.</span> <span class="toc-text">解决删除不及时的办法</span></a></li></ol></li></ol></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#ElasticSearch%EF%BC%88Lucene%EF%BC%89-%E4%B8%8ELSM%E7%9A%84%E5%BC%82%E5%90%8C"><span class="toc-number">6.</span> <span class="toc-text">ElasticSearch（Lucene） 与LSM的异同</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E7%9B%B8%E4%BC%BC%E7%82%B9"><span class="toc-number">6.1.</span> <span class="toc-text">核心相似点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E5%B7%AE%E5%BC%82"><span class="toc-number">6.2.</span> <span class="toc-text">关键差异</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3"><span class="toc-number">6.3.</span> <span class="toc-text">核心思想</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%9D%A5%E7%9C%8BES"><span class="toc-number">7.</span> <span class="toc-text">从集群来看ES</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4"><span class="toc-number">7.1.</span> <span class="toc-text">集群</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E7%82%B9"><span class="toc-number">7.2.</span> <span class="toc-text">结点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95-1"><span class="toc-number">7.3.</span> <span class="toc-text">索引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E7%89%87"><span class="toc-number">7.4.</span> <span class="toc-text">分片</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%F0%9F%94%A5-%E4%B8%BE%E4%B8%AA%E4%BE%8B%E5%AD%90"><span class="toc-number">8.</span> <span class="toc-text">🔥 举个例子</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%95%AA%E5%A4%96"><span class="toc-number">9.</span> <span class="toc-text">番外</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8-geo-shape-%E7%B1%BB%E5%9E%8B%EF%BC%88%E8%80%8C%E4%B8%8D%E6%98%AF-geo-point%EF%BC%89"><span class="toc-number">9.0.1.</span> <span class="toc-text">. 用 geo_shape 类型（而不是 geo_point）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HNSW"><span class="toc-number">10.</span> <span class="toc-text">HNSW</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E8%AE%BE%E8%AE%A1"><span class="toc-number">11.</span> <span class="toc-text">场景设计</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%96%E5%8D%96%E7%B3%BB%E7%BB%9F%E6%80%8E%E4%B9%88%E7%94%A8ES%E8%81%9A%E5%90%88%E9%99%84%E8%BF%91%E5%95%86%E5%AE%B6%E7%9A%84%E8%AF%84%E5%88%86%EF%BC%9F"><span class="toc-number">12.</span> <span class="toc-text">外卖系统怎么用ES聚合附近商家的评分？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E7%9A%84-ES-%E6%9F%A5%E8%AF%A2"><span class="toc-number">12.0.1.</span> <span class="toc-text">具体的 ES 查询</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%F0%9F%9B%92-%E7%94%B5%E5%95%86%E7%B3%BB%E7%BB%9F%E6%80%8E%E4%B9%88%E7%94%A8ES%E7%AE%97%E5%AE%9E%E6%97%B6%E9%94%80%E5%94%AE%E6%A6%9C%EF%BC%9F"><span class="toc-number">13.</span> <span class="toc-text">🛒 电商系统怎么用ES算实时销售榜？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E7%9A%84-ES-%E6%9F%A5%E8%AF%A2-1"><span class="toc-number">13.0.1.</span> <span class="toc-text">具体的 ES 查询</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E6%AF%94Redis%E7%9A%84Zset%E6%9C%89%E4%BB%80%E4%B9%88%E4%BC%98%E5%8A%BF%EF%BC%9F"><span class="toc-number">13.1.</span> <span class="toc-text">对比Redis的Zset有什么优势？</span></a></li></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/06/09/%E4%B8%AD%E9%97%B4%E4%BB%B6/RocketMQ/" title="RocketMQ使用/源码享用"><img src="https://th.bing.com/th/id/OSK.4d2aa9904b0d04fe5b75bbae49d4d335?w=102&amp;h=102&amp;c=7&amp;o=6&amp;pid=SANGAM" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="RocketMQ使用/源码享用"></a><div class="content"><a class="title" href="/2025/06/09/%E4%B8%AD%E9%97%B4%E4%BB%B6/RocketMQ/" title="RocketMQ使用/源码享用">RocketMQ使用/源码享用</a><time datetime="2025-06-09T12:16:29.000Z" title="发表于 2025-06-09 20:16:29">2025-06-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/06/07/AI/MCP/" title="MCP、RAG初体验以及相关思考"><img src="https://th.bing.com/th/id/OIP.-442vLgw-9MU4lnbiLl2RwHaHa?r=0&amp;o=7rm=3&amp;rs=1&amp;pid=ImgDetMain" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MCP、RAG初体验以及相关思考"></a><div class="content"><a class="title" href="/2025/06/07/AI/MCP/" title="MCP、RAG初体验以及相关思考">MCP、RAG初体验以及相关思考</a><time datetime="2025-06-07T05:24:11.000Z" title="发表于 2025-06-07 13:24:11">2025-06-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/05/01/%E8%BD%AE%E5%AD%90_%E7%8E%A9%E5%85%B7/%E6%89%8B%E5%86%99%E5%8A%A8%E6%80%81%E7%BA%BF%E7%A8%8B%E6%B1%A0/" title="手写动态线程池"><img src="https://www.helloimg.com/i/2024/11/19/673c865f77e66.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="手写动态线程池"></a><div class="content"><a class="title" href="/2025/05/01/%E8%BD%AE%E5%AD%90_%E7%8E%A9%E5%85%B7/%E6%89%8B%E5%86%99%E5%8A%A8%E6%80%81%E7%BA%BF%E7%A8%8B%E6%B1%A0/" title="手写动态线程池">手写动态线程池</a><time datetime="2025-04-30T16:01:48.000Z" title="发表于 2025-05-01 00:01:48">2025-05-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/04/27/%E8%BD%AE%E5%AD%90_%E7%8E%A9%E5%85%B7/README/" title="Go 实现 Raft一致性算法"><img src="https://www.helloimg.com/i/2025/05/01/6812512ba3c13.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Go 实现 Raft一致性算法"></a><div class="content"><a class="title" href="/2025/04/27/%E8%BD%AE%E5%AD%90_%E7%8E%A9%E5%85%B7/README/" title="Go 实现 Raft一致性算法">Go 实现 Raft一致性算法</a><time datetime="2025-04-26T16:23:16.212Z" title="发表于 2025-04-27 00:23:16">2025-04-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/03/12/ElasticSearch/" title="ElasticSearch 进阶"><img src="https://www.helloimg.com/i/2025/06/10/6847ffee96241.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ElasticSearch 进阶"></a><div class="content"><a class="title" href="/2025/03/12/ElasticSearch/" title="ElasticSearch 进阶">ElasticSearch 进阶</a><time datetime="2025-03-11T16:00:00.000Z" title="发表于 2025-03-12 00:00:00">2025-03-12</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">©2020 - 2025 By 末影</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/fireworks.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zindex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
 POWERMODE.shake = true;
 POWERMODE.mobile = true;
 document.body.addEventListener('input', POWERMODE);
