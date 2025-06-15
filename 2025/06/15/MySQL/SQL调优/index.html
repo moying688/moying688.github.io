@@ -1,0 +1,269 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>SQL调优 | 一只末影酱的小屋</title><meta name="author" content="末影"><meta name="copyright" content="末影"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="MySQL SQL调优实战 后续把我的ArchLinux docker证书弄好，再考虑Es，Windows感觉太不方便了还是 文章暂时也不会很详细针对const、ref、range去进行优化，一般达到range已经完全足够了  表结构 商品表：product----------------------id (int, pk)name (varchar)category_id (int)price">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQL调优">
+<meta property="og:url" content="http://example.com/2025/06/15/MySQL/SQL%E8%B0%83%E4%BC%98/index.html">
+<meta property="og:site_name" content="一只末影酱的小屋">
+<meta property="og:description" content="MySQL SQL调优实战 后续把我的ArchLinux docker证书弄好，再考虑Es，Windows感觉太不方便了还是 文章暂时也不会很详细针对const、ref、range去进行优化，一般达到range已经完全足够了  表结构 商品表：product----------------------id (int, pk)name (varchar)category_id (int)price">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.picui.cn/free/2025/06/15/684e6fb7cee5f.jpg">
+<meta property="article:published_time" content="2025-06-15T06:54:10.000Z">
+<meta property="article:modified_time" content="2025-06-15T08:40:20.257Z">
+<meta property="article:author" content="末影">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.picui.cn/free/2025/06/15/684e6fb7cee5f.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2025/06/15/MySQL/SQL%E8%B0%83%E4%BC%98/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'SQL调优',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-06-15 16:40:20'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-double-row-display@1.00/cardlistpost.css"><link rel="" "stylesheet"="" href="/css/background.css"><link rel="stylesheet" href="/css/mycss.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-double-row-display@1.00/cardlistpost.min.css">
+<style>#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags:before {content:"\A";
+  white-space: pre;}#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags > .article-meta__separator{display:none}</style>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.1.1"></head><body><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><div class="loading-img"></div><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+document.addEventListener('pjax:send', () => {
+  Pace.restart()
+})
+</script><link rel="stylesheet" href="/css/progress_bar.css"><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://img.picui.cn/free/2025/06/15/684e6fb7cee5f.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="一只末影酱的小屋"><span class="site-name">一只末影酱的小屋</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">SQL调优</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-06-15T06:54:10.000Z" title="发表于 2025-06-15 14:54:10">2025-06-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-06-15T08:40:20.257Z" title="更新于 2025-06-15 16:40:20">2025-06-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/MySQL/">MySQL</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="SQL调优"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><div class="top-img" style="background-image: url('https://img.picui.cn/free/2025/06/15/684e6fb7cee5f.jpg');"></div><article class="post-content" id="article-container"><h2 id="MySQL-SQL调优实战"><a href="#MySQL-SQL调优实战" class="headerlink" title="MySQL SQL调优实战"></a>MySQL SQL调优实战</h2><blockquote>
+<p>后续把我的ArchLinux docker证书弄好，再考虑Es，Windows感觉太不方便了还是</p>
+<p>文章暂时也不会很详细针对const、ref、range去进行优化，一般达到range已经完全足够了</p>
+</blockquote>
+<p>表结构</p>
+<figure class="highlight sql"><table><tbody><tr><td class="code"><pre><span class="line">商品表：product</span><br><span class="line"><span class="comment">----------------------</span></span><br><span class="line">id (<span class="type">int</span>, pk)</span><br><span class="line">name (<span class="type">varchar</span>)</span><br><span class="line">category_id (<span class="type">int</span>)</span><br><span class="line">price (<span class="type">decimal</span>)</span><br><span class="line">status (tinyint) <span class="comment">-- 0 下架，1 上架</span></span><br><span class="line">create_time (datetime)</span><br><span class="line"></span><br><span class="line">商品详情表：product_detail</span><br><span class="line"><span class="comment">----------------------</span></span><br><span class="line">id (<span class="type">int</span>, pk)</span><br><span class="line">product_id (<span class="type">int</span>, fk)</span><br><span class="line">description (text)</span><br><span class="line">sales_volume (<span class="type">int</span>)</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+
+<p>用户希望在商品页中加载「最近一个月内上架的、销量前20的商品」并按分类聚合。</p>
+<h3 id="初始化表-mock数据"><a href="#初始化表-mock数据" class="headerlink" title="初始化表&amp;mock数据"></a>初始化表&amp;mock数据</h3><figure class="highlight sql"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">-- 创建商品表</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> IF <span class="keyword">EXISTS</span> product;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> product (</span><br><span class="line">    id <span class="type">INT</span> <span class="keyword">PRIMARY</span> KEY AUTO_INCREMENT,</span><br><span class="line">    name <span class="type">VARCHAR</span>(<span class="number">50</span>),</span><br><span class="line">    category_id <span class="type">INT</span>,</span><br><span class="line">    price <span class="type">DECIMAL</span>(<span class="number">10</span>,<span class="number">2</span>),</span><br><span class="line">    status TINYINT,</span><br><span class="line">    create_time DATETIME</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 创建商品详情表</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> IF <span class="keyword">EXISTS</span> product_detail;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> product_detail (</span><br><span class="line">    id <span class="type">INT</span> <span class="keyword">PRIMARY</span> KEY AUTO_INCREMENT,</span><br><span class="line">    product_id <span class="type">INT</span>,</span><br><span class="line">    description TEXT,</span><br><span class="line">    sales_volume <span class="type">INT</span>,</span><br><span class="line">    <span class="keyword">FOREIGN</span> KEY (product_id) <span class="keyword">REFERENCES</span> product(id)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 存储过程：批量插入数据</span></span><br><span class="line">DELIMITER <span class="operator">/</span><span class="operator">/</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">PROCEDURE</span> IF <span class="keyword">EXISTS</span> generate_data <span class="operator">/</span><span class="operator">/</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">PROCEDURE</span> generate_data()</span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">    <span class="keyword">DECLARE</span> i <span class="type">INT</span> <span class="keyword">DEFAULT</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">DECLARE</span> recent_days <span class="type">INT</span>;</span><br><span class="line">    WHILE i <span class="operator">&lt;=</span> <span class="number">100000</span> DO</span><br><span class="line">        <span class="comment">-- 随机天数（0-365）</span></span><br><span class="line">        <span class="keyword">SET</span> recent_days <span class="operator">=</span> <span class="built_in">FLOOR</span>(RAND() <span class="operator">*</span> <span class="number">365</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">-- 插入 product 表</span></span><br><span class="line">        <span class="keyword">INSERT</span> <span class="keyword">INTO</span> product (</span><br><span class="line">            name, category_id, price, status, create_time</span><br><span class="line">        ) <span class="keyword">VALUES</span> (</span><br><span class="line">            CONCAT(<span class="string">'Product_'</span>, i),</span><br><span class="line">            <span class="built_in">FLOOR</span>(<span class="number">1</span> <span class="operator">+</span> RAND() <span class="operator">*</span> <span class="number">20</span>),</span><br><span class="line">            ROUND(RAND() <span class="operator">*</span> <span class="number">1000</span>, <span class="number">2</span>),</span><br><span class="line">            IF(RAND() <span class="operator">&gt;</span> <span class="number">0.1</span>, <span class="number">1</span>, <span class="number">0</span>),</span><br><span class="line">            NOW() <span class="operator">-</span> <span class="type">INTERVAL</span> recent_days <span class="keyword">DAY</span></span><br><span class="line">        );</span><br><span class="line">        </span><br><span class="line">        <span class="comment">-- 插入 product_detail 表（用 LAST_INSERT_ID 拿到自增主键）</span></span><br><span class="line">        <span class="keyword">INSERT</span> <span class="keyword">INTO</span> product_detail (</span><br><span class="line">            product_id, description, sales_volume</span><br><span class="line">        ) <span class="keyword">VALUES</span> (</span><br><span class="line">            LAST_INSERT_ID(),</span><br><span class="line">            CONCAT(<span class="string">'Description of product '</span>, i),</span><br><span class="line">            <span class="built_in">FLOOR</span>(RAND() <span class="operator">*</span> <span class="number">10000</span>)</span><br><span class="line">        );</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">SET</span> i <span class="operator">=</span> i <span class="operator">+</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">END</span> WHILE;</span><br><span class="line"><span class="keyword">END</span>;</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span></span><br><span class="line">DELIMITER ;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 执行生成过程</span></span><br><span class="line"><span class="keyword">CALL</span> generate_data();</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+
+
+
+
+<h3 id="索引优化"><a href="#索引优化" class="headerlink" title="索引优化"></a>索引优化</h3><p><img src="/2025/06/15/MySQL/SQL%E8%B0%83%E4%BC%98/image-20250615154906401.png" alt="image-20250615154906401"></p>
+<p><img src="/2025/06/15/MySQL/SQL%E8%B0%83%E4%BC%98/image-20250615154916254.png" alt="image-20250615154916254"></p>
+<p>后续稳定到0.07s左右（buffer pool</p>
+<p><img src="/2025/06/15/MySQL/SQL%E8%B0%83%E4%BC%98/image-20250615155102227.png" alt="image-20250615155102227"></p>
+<p>当然了，我们没有添加索引，直接就是全表扫描（type=ALL</p>
+<h4 id="高效索引"><a href="#高效索引" class="headerlink" title="高效索引"></a>高效索引</h4><figure class="highlight sql"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">-- 添加索引</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> product <span class="keyword">ADD</span> INDEX idx_status_createtime (status, create_time);</span><br><span class="line">这里首先</span><br><span class="line">status 一般是恒等的，因为需要查询某个状态，而create_time则通常是范围查询</span><br><span class="line">由于索引数据结构为B<span class="operator">+</span>树，在建立索引时，status应当放到create_time之前</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+
+<p>建立索引后</p>
+<p><img src="/2025/06/15/MySQL/SQL%E8%B0%83%E4%BC%98/image-20250615155647091.png" alt="image-20250615155647091"></p>
+<p><img src="/2025/06/15/MySQL/SQL%E8%B0%83%E4%BC%98/image-20250615155658856.png" alt="image-20250615155658856"></p>
+<p>可以看到rows大幅下降，且type也是显示range，extra 中变为using index</p>
+<h4 id="低效索引"><a href="#低效索引" class="headerlink" title="低效索引"></a>低效索引</h4><figure class="highlight sql"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">-- 将status和time位置交换</span></span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> product <span class="keyword">drop</span> index idx_status_createtime;</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> product <span class="keyword">ADD</span> INDEX idx_status_createtime ( create_time,status);</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="/2025/06/15/MySQL/SQL%E8%B0%83%E4%BC%98/image-20250615160021249.png" alt="image-20250615160021249"></p>
+<p>可以看到过滤率更低，且rows更高（create_time范围查询，而status=1只能在回表时进行过滤</p>
+<ul>
+<li><p>这里没有到达索引覆盖</p>
+</li>
+<li><p>引用了子查询的条件不能下推；</p>
+</li>
+<li><p>引用了存储函数的条件不能下推，因为存储引擎无法调用存储函数。</p>
+</li>
+</ul>
+<h3 id="深分页"><a href="#深分页" class="headerlink" title="深分页"></a>深分页</h3><blockquote>
+<p>首先我们通过触发器也是造了10w条数据</p>
+</blockquote>
+<figure class="highlight sql"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> product <span class="keyword">add</span> index idx_createtime(create_time);</span><br></pre></td></tr></tbody></table></figure>
+
+<p>可以看到，将limit 后的0 改为50000，查询速度却差了一大截</p>
+<figure class="highlight sql"><table><tbody><tr><td class="code"><pre><span class="line">我们走索引查询，但是由于 没有索引覆盖，会进行回表查询</span><br><span class="line">但是第二个语句</span><br><span class="line">第一次查询，会查询<span class="number">50000</span><span class="operator">+</span><span class="number">10</span>条的id<span class="operator">+</span>update_time</span><br><span class="line">第二次查询，回表查询<span class="number">50000</span><span class="operator">+</span><span class="number">10</span>条数据行，然后丢弃<span class="number">50000</span>条</span><br><span class="line">第二次查询完完全全是浪费的，完全没必要把<span class="number">50000</span>进行回表</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="/2025/06/15/MySQL/SQL%E8%B0%83%E4%BC%98/image-20250615161807825.png" alt="image-20250615161807825"></p>
+<p><img src="/2025/06/15/MySQL/SQL%E8%B0%83%E4%BC%98/image-20250615161821312.png" alt="image-20250615161821312"></p>
+<h4 id="延迟关联优化"><a href="#延迟关联优化" class="headerlink" title="延迟关联优化"></a>延迟关联优化</h4><p>既然拖慢速度的关键是回表查询时，把无用的50000条数据也拿去筛选了</p>
+<p>那我们不妨提前丢掉（MySQL优化器是无法直接做到的）所以需要我们自己实现逻辑</p>
+<p><img src="/2025/06/15/MySQL/SQL%E8%B0%83%E4%BC%98/image-20250615162417720.png" alt="image-20250615162417720"></p>
+<p>可以看到速度大大滴提高了</p>
+<h4 id="游标分页"><a href="#游标分页" class="headerlink" title="游标分页"></a>游标分页</h4><blockquote>
+<p>需要保证id为自增的，我们记录50000条的数据id，从它后面再数10条即可</p>
+</blockquote>
+<figure class="highlight sql"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">-- 记住上一页最后一条记录的create_time和id</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> product</span><br><span class="line"><span class="keyword">WHERE</span> create_time <span class="operator">&gt;</span> <span class="string">'上一页最后时间'</span> <span class="keyword">OR</span> </span><br><span class="line">      (create_time <span class="operator">=</span> <span class="string">'上一页最后时间'</span> <span class="keyword">AND</span> id <span class="operator">&gt;</span> <span class="string">'上一页最后ID'</span>)</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> create_time, id</span><br><span class="line">LIMIT <span class="number">10</span>;</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+
+
+<h3 id="索引下推"><a href="#索引下推" class="headerlink" title="索引下推"></a>索引下推</h3><blockquote>
+<p>我们知道，当使用二级索引时，不满足索引覆盖则会进行回表查询</p>
+<p>且当不符合最左匹配时，后面的属性列不会走索引，</p>
+<p>select * from table where a &gt; 1 and b = 1（此时b索引是失效的</p>
+</blockquote>
+<p>设计者显然也会想到这点，比如我们要查询的数据包含了全部索引，</p>
+<p>那我还要白白去回表查询大量完整数据行</p>
+<p>然后在server层去条件过滤，那就太浪费了。</p>
+<p>因此有了索引下推： 但我们查询属性包含索引列时，即使后面的索引条件失效，但是当我们通过a &gt; 1查询到数据后，在回表查询前，会在引擎层，先用 b =1 进行一次过滤然后再进行回表查询</p>
+<figure class="highlight sql"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> product <span class="keyword">add</span> index idx_price_status(price,STATUS);</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> product <span class="keyword">WHERE</span> price <span class="operator">&gt;</span> <span class="number">100.0</span>;</span><br><span class="line">EXPLAIN <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> product <span class="keyword">WHERE</span> price <span class="operator">&gt;</span> <span class="number">100.0</span>;</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> product <span class="keyword">WHERE</span> price <span class="operator">&gt;</span> <span class="number">100.0</span> <span class="keyword">and</span> status <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">EXPLAIN <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> product <span class="keyword">WHERE</span> price <span class="operator">&gt;</span> <span class="number">100.0</span> <span class="keyword">and</span> status <span class="operator">=</span> <span class="number">1</span>;</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<p><img src="/2025/06/15/MySQL/SQL%E8%B0%83%E4%BC%98/image-20250615164013127.png" alt="image-20250615164013127"></p>
+<p><img src="/2025/06/15/MySQL/SQL%E8%B0%83%E4%BC%98/image-20250615163949141.png" alt="image-20250615163949141"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">末影</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2025/06/15/MySQL/SQL%E8%B0%83%E4%BC%98/">http://example.com/2025/06/15/MySQL/SQL%E8%B0%83%E4%BC%98/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">一只末影酱的小屋</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/MySQL/">MySQL</a></div><div class="post_share"><div class="social-share" data-image="https://img.picui.cn/free/2025/06/15/684e6fb7cee5f.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2025/06/11/AI/MCP-ELK/" title="MCP_ELK"><img class="cover" src="https://pic.imgdb.cn/item/67452c3588c538a9b5bbf7b5.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">MCP_ELK</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info__name">末影</div><div class="author-info__description">只因不是出自真心，话语各位动听</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/moying688"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="https://blog.csdn.net/m0_74345527" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="mailto:2869289913@qq.com" target="_blank" title="Email"><i class="fas fa-envelope-open-text"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL-SQL%E8%B0%83%E4%BC%98%E5%AE%9E%E6%88%98"><span class="toc-number">1.</span> <span class="toc-text">MySQL SQL调优实战</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E8%A1%A8-mock%E6%95%B0%E6%8D%AE"><span class="toc-number">1.1.</span> <span class="toc-text">初始化表&amp;mock数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96"><span class="toc-number">1.2.</span> <span class="toc-text">索引优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%AB%98%E6%95%88%E7%B4%A2%E5%BC%95"><span class="toc-number">1.2.1.</span> <span class="toc-text">高效索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%8E%E6%95%88%E7%B4%A2%E5%BC%95"><span class="toc-number">1.2.2.</span> <span class="toc-text">低效索引</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%B1%E5%88%86%E9%A1%B5"><span class="toc-number">1.3.</span> <span class="toc-text">深分页</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BB%B6%E8%BF%9F%E5%85%B3%E8%81%94%E4%BC%98%E5%8C%96"><span class="toc-number">1.3.1.</span> <span class="toc-text">延迟关联优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B8%B8%E6%A0%87%E5%88%86%E9%A1%B5"><span class="toc-number">1.3.2.</span> <span class="toc-text">游标分页</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95%E4%B8%8B%E6%8E%A8"><span class="toc-number">1.4.</span> <span class="toc-text">索引下推</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/06/15/MySQL/SQL%E8%B0%83%E4%BC%98/" title="SQL调优"><img src="https://img.picui.cn/free/2025/06/15/684e6fb7cee5f.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL调优"></a><div class="content"><a class="title" href="/2025/06/15/MySQL/SQL%E8%B0%83%E4%BC%98/" title="SQL调优">SQL调优</a><time datetime="2025-06-15T06:54:10.000Z" title="发表于 2025-06-15 14:54:10">2025-06-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/06/11/AI/MCP-ELK/" title="MCP_ELK"><img src="https://pic.imgdb.cn/item/67452c3588c538a9b5bbf7b5.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MCP_ELK"></a><div class="content"><a class="title" href="/2025/06/11/AI/MCP-ELK/" title="MCP_ELK">MCP_ELK</a><time datetime="2025-06-10T16:01:45.000Z" title="发表于 2025-06-11 00:01:45">2025-06-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/06/10/%E5%88%86%E5%B8%83%E5%BC%8F/Snowflake/" title="Snowflake"><img src="https://n.sinaimg.cn/sinacn20119/448/w1024h1024/20191128/4b38-iixnuaa2343045.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Snowflake"></a><div class="content"><a class="title" href="/2025/06/10/%E5%88%86%E5%B8%83%E5%BC%8F/Snowflake/" title="Snowflake">Snowflake</a><time datetime="2025-06-10T14:34:46.000Z" title="发表于 2025-06-10 22:34:46">2025-06-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/06/09/%E4%B8%AD%E9%97%B4%E4%BB%B6/RocketMQ/" title="RocketMQ使用/源码享用"><img src="https://th.bing.com/th/id/OSK.4d2aa9904b0d04fe5b75bbae49d4d335?w=102&amp;h=102&amp;c=7&amp;o=6&amp;pid=SANGAM" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="RocketMQ使用/源码享用"></a><div class="content"><a class="title" href="/2025/06/09/%E4%B8%AD%E9%97%B4%E4%BB%B6/RocketMQ/" title="RocketMQ使用/源码享用">RocketMQ使用/源码享用</a><time datetime="2025-06-09T12:16:29.000Z" title="发表于 2025-06-09 20:16:29">2025-06-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/06/07/AI/MCP/" title="MCP、RAG初体验以及相关思考"><img src="https://th.bing.com/th/id/OIP.-442vLgw-9MU4lnbiLl2RwHaHa?r=0&amp;o=7rm=3&amp;rs=1&amp;pid=ImgDetMain" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MCP、RAG初体验以及相关思考"></a><div class="content"><a class="title" href="/2025/06/07/AI/MCP/" title="MCP、RAG初体验以及相关思考">MCP、RAG初体验以及相关思考</a><time datetime="2025-06-07T05:24:11.000Z" title="发表于 2025-06-07 13:24:11">2025-06-07</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">©2020 - 2025 By 末影</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/fireworks.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zindex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div><!-- hexo injector body_end start --><script data-pjax="" src="https://unpkg.com/oh-my-live2d"></script><script>const oml2d = OML2D.loadOml2d({dockedPosition:"left",mobileDisplay:true,models:[{"path":"/model/lafei_4/lafei_4.model3.json","scale":0.045},{"path":"/model/sagiri/sagiri.model.json","position":[-10,35],"scale":0.15,"stageStyle":{"width":250,"height":250}}],parentElement:document.body,primaryColor:"var(--btn-bg)",sayHello:false,tips:{style: {"width":230,"height":120,"left":"calc(50% - 20px)","top":"-100px"},mobileStyle: {"width":180,"height":80,"left":"calc(50% - 30px)","top":"-100px"},idleTips:{interval:15000,message:function(){
+  return axios.get('https://v1.hitokoto.cn?c=i')
+    .then(function (response) {
+      return response.data.hitokoto ;
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+}
+}}});</script><!-- hexo injector body_end end --></body></html>
