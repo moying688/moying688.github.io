@@ -4,6 +4,111 @@
   
     
     <entry>
+      <title>大模型应用思考</title>
+      <link href="/2025/07/31/AI/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8%E6%80%9D%E8%80%83/"/>
+      <url>/2025/07/31/AI/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8%E6%80%9D%E8%80%83/</url>
+      
+        <content type="html"><![CDATA[<p>博主自22年进入大学，也是AI应用以及大模型逐渐变火的时候<br>当时也是早早体验了AI绘画、AI炼丹（声音）、ChatGPT</p><p>后续为了大模型更好的体验也是逐渐出现Function Calling、RAG、MCP、AI Agent等概念</p><p>到今年上半年提出的vibe coding，都是在探索大模型的落地应用，毕竟只靠网页端对话实在是难以一直发展</p><h2 id="大模型应用"><a href="#大模型应用" class="headerlink" title="大模型应用"></a>大模型应用</h2><blockquote><p>这里主要记录自己的一点想法以及思考，只是思考QAQ</p></blockquote><h3 id="支付类"><a href="#支付类" class="headerlink" title="支付类"></a>支付类</h3><h3 id="辅助类"><a href="#辅助类" class="headerlink" title="辅助类"></a>辅助类</h3>]]></content>
+      
+      
+      <categories>
+          
+          <category> AI </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> AI </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>一步步实现简单线程池</title>
+      <link href="/2025/07/24/%E8%BD%AE%E5%AD%90_%E7%8E%A9%E5%85%B7/%E4%B8%80%E6%AD%A5%E6%AD%A5%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
+      <url>/2025/07/24/%E8%BD%AE%E5%AD%90_%E7%8E%A9%E5%85%B7/%E4%B8%80%E6%AD%A5%E6%AD%A5%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%BA%BF%E7%A8%8B%E6%B1%A0/</url>
+      
+        <content type="html"><![CDATA[<p><strong>前言</strong></p><blockquote><p>池化思想不仅仅是用于缓冲时，减少数据传递次数</p><p>也可以复用类似于线程池、连接池一样，用于复用连接，减少创建销毁开销</p><p>不仅仅是创建一个结构体这么简单，由于Java线程跟OS线程1对1，还需要切换内核态，开销更是大了</p></blockquote><p>我们先一步步搭建，从大体框架，到慢慢加入其他机制</p><h2 id="搭建基本框架"><a href="#搭建基本框架" class="headerlink" title="搭建基本框架"></a>搭建基本框架</h2><blockquote><p>这里成员变量没有写拒绝策略，以及线程工厂</p><p>拒绝策略后续再加，目前使用简单的 throw 或者return拒绝即可</p></blockquote><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> TreadPool_demo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.BlockingQueue;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: moying</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@CreateTime</span>: 2025-07-24</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: 简单线程池</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyThreadPool</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 核心线程数</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> coreSize;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 最大线程数</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> maxSize;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 阻塞队列，用于存储任务（take方法阻塞，poll方法定时阻塞）</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> BlockingQueue&lt;Runnable&gt; taskQueue;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 时间单位</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> TimeUnit timeUnit;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 空闲时间，控制额外线程的销毁</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">long</span> timeout;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MyThreadPool</span><span class="params">(<span class="type">int</span> coreSize,<span class="type">int</span> maxSize,TimeUnit timeUnit,<span class="type">long</span> timeout,BlockingQueue&lt;Runnable&gt;taskQueue)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.coreSize = coreSize;</span><br><span class="line">        <span class="built_in">this</span>.taskQueue = taskQueue;</span><br><span class="line">        <span class="built_in">this</span>.maxSize = maxSize;</span><br><span class="line">        <span class="built_in">this</span>.timeout = timeout;</span><br><span class="line">        <span class="built_in">this</span>.timeUnit = timeUnit;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;Thread&gt; coreThreadList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;Thread&gt; supportThreadList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">execute</span><span class="params">(Runnable task)</span>&#123;</span><br><span class="line">        <span class="comment">// 1. 如果没有超过核心线程数，则创建线程</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2. 如果没有超过阻塞队列大小，加入队列</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3. 如果没有超过最大线程数，创建线程</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 4. 执行拒绝策略</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><h3 id="编写核心线程逻辑"><a href="#编写核心线程逻辑" class="headerlink" title="编写核心线程逻辑"></a>编写核心线程逻辑</h3><p>先梳理一下核心线程的特点</p><ul><li>核心线程生命周期 随着 线程池创建和销毁</li><li>线程池提供核心线程数的set方法，核心线程数执行完任务也会去做判断，然后相应移除超出线程（本文章应该不会实现）</li><li>线程复用——》不销毁——》通过循环+阻塞方法等待任务不让自己结束（使用阻塞队列 take方法完成</li></ul><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CoreThread</span> <span class="keyword">extends</span> <span class="title class_">Thread</span>&#123;</span><br><span class="line">      <span class="keyword">private</span> Runnable firstTask;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">public</span> <span class="title function_">CoreThread</span><span class="params">(Runnable firstTask)</span>&#123;</span><br><span class="line">          <span class="built_in">this</span>.firstTask = firstTask;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="meta">@Override</span></span><br><span class="line">      <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span>&#123;</span><br><span class="line">          <span class="comment">// 先执行自己拿到的第一个任务</span></span><br><span class="line">          firstTask.run();</span><br><span class="line">          <span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">           <span class="comment">// 循环拿取阻塞队列任务</span></span><br><span class="line">              <span class="keyword">try</span> &#123;</span><br><span class="line">                  <span class="comment">// take 会阻塞等待获取数据</span></span><br><span class="line">                  <span class="type">Runnable</span> <span class="variable">command</span> <span class="operator">=</span> taskQueue.take();</span><br><span class="line">                  command.run();</span><br><span class="line">              &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                  <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure><h3 id="编写最大线程逻辑（额外线程）"><a href="#编写最大线程逻辑（额外线程）" class="headerlink" title="编写最大线程逻辑（额外线程）"></a>编写最大线程逻辑（额外线程）</h3><p>额外线程的特点就是，当没有任务执行时，等待空闲时间后，就会销毁自己</p><p>恰好可以使用 阻塞队列的 poll方法完成</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">SupportThread</span> <span class="keyword">extends</span> <span class="title class_">Thread</span>&#123;</span><br><span class="line">       <span class="keyword">private</span> Runnable firstTask;</span><br><span class="line">       <span class="keyword">private</span> TimeUnit timeUnit;</span><br><span class="line">       <span class="keyword">private</span> <span class="type">long</span> timeout;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">public</span> <span class="title function_">SupportThread</span><span class="params">(Runnable firstTask,TimeUnit timeUnit,<span class="type">long</span> timeout)</span>&#123;</span><br><span class="line">           <span class="built_in">this</span>.firstTask = firstTask;</span><br><span class="line">           <span class="built_in">this</span>.timeout = timeout;</span><br><span class="line">           <span class="built_in">this</span>.timeUnit = timeUnit;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="meta">@Override</span></span><br><span class="line">       <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span>&#123;</span><br><span class="line">           <span class="comment">// 先执行自己拿到的第一个任务</span></span><br><span class="line">           firstTask.run();</span><br><span class="line">           <span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">               <span class="comment">// 循环拿取阻塞队列任务</span></span><br><span class="line">               <span class="keyword">try</span> &#123;</span><br><span class="line">                   <span class="comment">// poll 定时等待获取数据</span></span><br><span class="line">                   <span class="type">Runnable</span> <span class="variable">command</span> <span class="operator">=</span> taskQueue.poll(timeout, timeUnit);</span><br><span class="line">                   <span class="keyword">if</span>(command==<span class="literal">null</span>)&#123;</span><br><span class="line">                       <span class="keyword">break</span>;</span><br><span class="line">                   &#125;</span><br><span class="line">                   command.run();</span><br><span class="line">               &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                   <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="comment">// 关闭时给点信息方便后续测试</span></span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">&quot;is close&quot;</span>);</span><br><span class="line">           supportThreadList.remove(Thread.currentThread());</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure><h3 id="回写线程池的Execute"><a href="#回写线程池的Execute" class="headerlink" title="回写线程池的Execute"></a>回写线程池的Execute</h3><blockquote><p>线程的逻辑写完了, 只需要按照流程补充完Execute即可</p></blockquote><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">execute</span><span class="params">(Runnable task)</span> &#123;</span><br><span class="line">       <span class="comment">// 1. 如果没有超过核心线程数，则创建线程</span></span><br><span class="line">       <span class="keyword">if</span> (coreThreadList.size() &lt; coreSize) &#123;</span><br><span class="line">           <span class="type">CoreThread</span> <span class="variable">coreThread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CoreThread</span>(task);</span><br><span class="line">           coreThreadList.add(coreThread);</span><br><span class="line">           coreThread.start();</span><br><span class="line">           <span class="keyword">return</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">// 2. 如果没有超过阻塞队列大小，加入队列</span></span><br><span class="line">       <span class="keyword">if</span> (taskQueue.offer(task)) &#123;</span><br><span class="line">           <span class="keyword">return</span>;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="comment">// 3. 如果没有超过最大线程数，创建线程</span></span><br><span class="line">       <span class="keyword">if</span> (supportThreadList.size() + coreThreadList.size() &lt; maxSize) &#123;</span><br><span class="line">           <span class="type">SupportThread</span> <span class="variable">supportThread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SupportThread</span>(task, timeUnit, timeout);</span><br><span class="line">           supportThreadList.add(supportThread);</span><br><span class="line">           supportThread.start();</span><br><span class="line">           <span class="keyword">return</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">// 4. 执行拒绝策略</span></span><br><span class="line">       <span class="keyword">if</span> (!taskQueue.offer(task)) &#123;</span><br><span class="line">           System.out.println(<span class="string">&quot;线程池已满，拒绝任务&quot;</span>);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure><h2 id="补充逻辑"><a href="#补充逻辑" class="headerlink" title="补充逻辑"></a>补充逻辑</h2><h3 id="加入拒绝策略"><a href="#加入拒绝策略" class="headerlink" title="加入拒绝策略"></a>加入拒绝策略</h3><p>这里可以使用接口，然后自己写实现类就好，后续再补充</p><p>也可以使用 枚举策略模式</p><h4 id="接口-实现类"><a href="#接口-实现类" class="headerlink" title="接口+实现类"></a>接口+实现类</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThrowRejectHandle</span> <span class="keyword">implements</span> <span class="title class_">RejectHandle</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">reject</span><span class="params">(Runnable rejectCommand, MyThreadPool threadPool)</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;阻塞队列满了！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><h4 id="枚举策略模式"><a href="#枚举策略模式" class="headerlink" title="枚举策略模式"></a>枚举策略模式</h4><blockquote><p>可以使用Spring Bean注入进行优化，也可以使用 abstract 的 match方法；</p></blockquote><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">RejectStrategy</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 拒绝策略：直接抛出异常</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    ABORT( <span class="number">1</span>, <span class="string">&quot;abort&quot;</span>, (rejectCommand) -&gt; &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;线程池已满！&quot;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="type">int</span> code;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> String desc;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> Function&lt;Runnable, Object&gt; function;</span><br><span class="line">     RejectStrategy(<span class="type">int</span> code, String desc, Function&lt;Runnable, Object&gt; function) &#123;</span><br><span class="line">        <span class="built_in">this</span>.desc = desc;</span><br><span class="line">        <span class="built_in">this</span>.code = code;</span><br><span class="line">        <span class="built_in">this</span>.function = function;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> RejectStrategy <span class="title function_">math</span><span class="params">(<span class="type">int</span> code)</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (RejectStrategy strategy : RejectStrategy.values()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (strategy.code == code) &#123;</span><br><span class="line">                <span class="keyword">return</span> strategy;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">public</span> Object <span class="title function_">apply</span><span class="params">(Runnable rejectCommand)</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">         <span class="keyword">return</span> function.apply(rejectCommand);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 轮子 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> JUC </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Redis如何优化如何好用？</title>
+      <link href="/2025/07/21/%E4%B8%AD%E9%97%B4%E4%BB%B6/Redis%E4%BD%95%E5%BE%B7%E4%BD%95%E8%83%BD/"/>
+      <url>/2025/07/21/%E4%B8%AD%E9%97%B4%E4%BB%B6/Redis%E4%BD%95%E5%BE%B7%E4%BD%95%E8%83%BD/</url>
+      
+        <content type="html"><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><blockquote><p>首先Redis为什么这么快的说法必须要有一个前提才能站得住脚</p><p>因此本文更希望去讨论，Redis如何优化到目前这个性能以及为什么我们经常使用它</p></blockquote><h1 id="上下比对"><a href="#上下比对" class="headerlink" title="上下比对"></a>上下比对</h1><h3 id="回顾八股"><a href="#回顾八股" class="headerlink" title="回顾八股"></a>回顾八股</h3><p>比对之前我们先看看日常八股中提到的</p><ul><li>Redis是基于内存操作</li><li>Redis高效数据结构，对数据的操作也比较简单</li><li>Redis是单线程模型，从而避开了多线程中上下文频繁切换的操作</li><li>使用多路I&#x2F;O复用模型，非阻塞I&#x2F;O</li></ul><p>首先八股就很有意思，直接不谈任何上下文，只是罗列了一堆技术应用</p><ol><li><p>基于内存就很快？那我们何不直接使用MySQL 的 Memory 引擎？</p></li><li><p>单线程模型——》避免多线程上下文切换开销，那朋友们写代码的时候一定狠狠遵守单线程模型的吧</p></li><li><p>多路I&#x2F;O复用模型，目前开源的优秀组件，大多数都有多路I&#x2F;O复用</p></li></ol><blockquote><p>高效数据结构，这没得喷，这个是真神</p></blockquote><h2 id="本地缓存"><a href="#本地缓存" class="headerlink" title="本地缓存"></a>本地缓存</h2><p>很多时候我们会采用本地缓存 + Redis缓存 + DB</p><p>显然本地缓存速度是更优于Redis的</p><p>他们的差异点主要在于</p><ul><li>本地缓存无网络通信开销</li><li>无需序列化转换</li></ul><h3 id="Redis如何向上对齐？"><a href="#Redis如何向上对齐？" class="headerlink" title="Redis如何向上对齐？"></a>Redis如何向上对齐？</h3><h4 id="网络通信优化"><a href="#网络通信优化" class="headerlink" title="网络通信优化"></a>网络通信优化</h4><p>网络通信这一点极为关键，虽然拖慢了速度，但也是让Redis作为缓存、分布式锁、队列的关键点，能作为分布式系统的 关键中转点</p><p>既然做不到直接将网络通信优化，那我们可以考虑将网络通信开销优化😊</p><ul><li>Redis 采用RESP 文本协议（不同于HTTP）一种简洁的文本协议</li><li>Redis 实现Pipeline，把多个命令“打包”一起发送，减少 RTT（类比HTTP1.1优化HTTP1.0）</li></ul><h4 id="序列化优化"><a href="#序列化优化" class="headerlink" title="序列化优化"></a>序列化优化</h4><p>本地缓存 Java类存储到Java类，取出同理</p><p>Redis则是 从Java类——》Redis——》Java类</p><p>不同应用的数据传输需要通过序列化以及反序列化操作</p><p>那Redis也需要从序列化的优化上做手脚</p><blockquote><p>但其实使用Redis时，序列化方式往往是我们自己选择的</p><p>它本身操作的是字节数组或字符串，相比较于JSON这种可读性序列化来说</p><p>速度是大大滴快的</p></blockquote><h2 id="MySQL-MySQL-Memory"><a href="#MySQL-MySQL-Memory" class="headerlink" title="MySQL&amp;&amp;MySQL Memory"></a>MySQL&amp;&amp;MySQL Memory</h2><p>前面八股说到，Redis基于内存操作，所以快</p><p>可是MySQL Memory也是内存操作啊，这样为什么还要引入Redis？</p><h3 id="Redis向下借鉴"><a href="#Redis向下借鉴" class="headerlink" title="Redis向下借鉴"></a>Redis向下借鉴</h3><h4 id="数据结构的优化-转换"><a href="#数据结构的优化-转换" class="headerlink" title="数据结构的优化&amp;转换"></a>数据结构的优化&amp;转换</h4><p>Redis单线程执行命令的好处，无需像MySQL那样还需要MVCC、表锁、行锁</p><p>更重要的是MySQL memory索引使用B+树索引或hash索引</p><p>Redis采用多种数据结构应对不同的使用场景</p><ul><li>字符串——SDS字符串（优化C语言的字符串数组）</li><li>List —— 压缩列表&#x2F;双向链表（高版本紧凑列表更新为quicklist）</li><li>Set —— 整数集合&#x2F;哈希</li><li>Zset —— 压缩列表&#x2F;跳表 （后续更新为quicklist）</li><li>Hash —— 压缩列表&#x2F;哈希表（后续替代为listpack）</li></ul><h2 id="单Reactor单线程-》单Reactor多线程"><a href="#单Reactor单线程-》单Reactor多线程" class="headerlink" title="单Reactor单线程-》单Reactor多线程"></a>单Reactor单线程-》单Reactor多线程</h2><p>Reactor核心</p><ul><li>三类处理事件，即连接事件、写事件、读事件；</li><li>三个关键角色，即 reactor、acceptor、handler。</li></ul><p>在Redis6.0后，引入多线程网络I&#x2F;O用来 处理网络请求以及响应，但执行命令的核心流程仍然是单线程执行</p><h3 id="根据自身适用场景优化同行"><a href="#根据自身适用场景优化同行" class="headerlink" title="根据自身适用场景优化同行"></a>根据自身适用场景优化同行</h3><table><thead><tr><th>方面</th><th>Redis</th><th>Netty</th></tr></thead><tbody><tr><td>I&#x2F;O 多路复用</td><td>基于 <code>epoll</code>，主线程直接轮询处理所有事件</td><td>Reactor 模型，<code>bossGroup</code> 负责接收，<code>workerGroup</code> 处理</td></tr><tr><td>并发模型</td><td>完全单线程（I&#x2F;O + 命令 + 内存全部串行处理）</td><td>多线程，任务在多个 EventLoop 间调度</td></tr><tr><td>命令执行模型</td><td>命令直接在主线程中调用对应 <code>commandTable</code> 执行</td><td>业务逻辑需要开发者实现处理器，挂载在 ChannelPipeline 上</td></tr><tr><td>线程上下文切换</td><td>无</td><td>有（尤其是 channelHandler 切换线程执行）</td></tr></tbody></table><p><img src="/2025/07/21/%E4%B8%AD%E9%97%B4%E4%BB%B6/Redis%E4%BD%95%E5%BE%B7%E4%BD%95%E8%83%BD/image-20250721160946679.png" alt="image-20250721160946679"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 中间件 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 中间件 </tag>
+            
+            <tag> 分布式 </tag>
+            
+            <tag> 并发 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Raft论文学习</title>
+      <link href="/2025/06/30/%E5%88%86%E5%B8%83%E5%BC%8F/Raft%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0/"/>
+      <url>/2025/06/30/%E5%88%86%E5%B8%83%E5%BC%8F/Raft%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Paxos论文解读</title>
+      <link href="/2025/06/30/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E5%8F%AF%E9%9D%A0%E7%B3%BB%E7%BB%9F-Paxos/"/>
+      <url>/2025/06/30/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E5%8F%AF%E9%9D%A0%E7%B3%BB%E7%BB%9F-Paxos/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>字节面试三月后复盘</title>
       <link href="/2025/06/15/%E9%9D%A2%E8%AF%95/%E5%AD%97%E8%8A%82%E9%9D%A2%E8%AF%95%E5%A4%8D%E7%9B%98/"/>
       <url>/2025/06/15/%E9%9D%A2%E8%AF%95/%E5%AD%97%E8%8A%82%E9%9D%A2%E8%AF%95%E5%A4%8D%E7%9B%98/</url>
@@ -135,9 +240,9 @@
             
             <tag> 中间件 </tag>
             
-            <tag> 并发 </tag>
-            
             <tag> 分布式 </tag>
+            
+            <tag> 并发 </tag>
             
         </tags>
       
@@ -163,31 +268,6 @@
         <tags>
             
             <tag> AI </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>手写动态线程池</title>
-      <link href="/2025/05/01/%E8%BD%AE%E5%AD%90_%E7%8E%A9%E5%85%B7/%E6%89%8B%E5%86%99%E5%8A%A8%E6%80%81%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
-      <url>/2025/05/01/%E8%BD%AE%E5%AD%90_%E7%8E%A9%E5%85%B7/%E6%89%8B%E5%86%99%E5%8A%A8%E6%80%81%E7%BA%BF%E7%A8%8B%E6%B1%A0/</url>
-      
-        <content type="html"><![CDATA[<h1 id="手写动态线程池"><a href="#手写动态线程池" class="headerlink" title="手写动态线程池"></a>手写动态线程池</h1><h2 id="引入SPI机制"><a href="#引入SPI机制" class="headerlink" title="引入SPI机制"></a>引入SPI机制</h2><h2 id="添加预警以及参数校验"><a href="#添加预警以及参数校验" class="headerlink" title="添加预警以及参数校验"></a>添加预警以及参数校验</h2>]]></content>
-      
-      
-      <categories>
-          
-          <category> 轮子 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Java </tag>
             
         </tags>
       
@@ -382,9 +462,9 @@
             
             <tag> 中间件 </tag>
             
-            <tag> 并发 </tag>
-            
             <tag> 分布式 </tag>
+            
+            <tag> 并发 </tag>
             
         </tags>
       
